@@ -7,7 +7,7 @@ import knexConfig from './knexfile';
 import routes from './router';
 
 const environment = process.env.NODE_ENV || 'development';
-const knex = Knex(knexConfig[environment]);
+export const knex = Knex(knexConfig[environment]);
 
 Model.knex(knex);
 
