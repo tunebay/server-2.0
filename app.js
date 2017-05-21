@@ -1,13 +1,9 @@
 import express from 'express';
 import morgan from 'morgan';
-import Knex from 'knex';
 import { Model } from 'objection';
 import bodyParser from 'body-parser';
-import knexConfig from './knexfile';
 import routes from './router';
-
-const environment = process.env.NODE_ENV || 'development';
-export const knex = Knex(knexConfig[environment]);
+import knex from './db/knex';
 
 Model.knex(knex);
 
