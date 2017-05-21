@@ -21,8 +21,10 @@
   },
   "homepage": "https://github.com/tunebay/server-2.0#readme",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.17.2",
     "express": "^4.15.3",
+    "jsonwebtoken": "^7.4.1",
     "knex": "^0.13.0",
     "morgan": "^1.8.1",
     "objection": "^0.7.12",
