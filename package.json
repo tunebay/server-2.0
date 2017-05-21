@@ -21,7 +21,10 @@
   "dependencies": {
     "body-parser": "^1.17.2",
     "express": "^4.15.3",
-    "morgan": "^1.8.1"
+    "knex": "^0.13.0",
+    "morgan": "^1.8.1",
+    "objection": "^0.7.12",
+    "pg": "^6.2.2"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
