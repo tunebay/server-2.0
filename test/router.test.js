@@ -4,7 +4,7 @@ import app from '../app';
 
 const API = '/api/v1';
 
-describe('router', () => {
+describe('🚏 router', () => {
   describe('#GET /', () => {
     it('connects to the API succesfully', (done) => {
       request(app).get(API)

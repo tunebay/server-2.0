@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "NODE_ENV=test mocha --compilers js:babel-core/register --watch",
+    "test": "NODE_ENV=test mocha --compilers js:babel-core/register --watch --recursive",
     "start": "NODE_ENV=development nodemon ./index.js --exec babel-node",
     "migrate:dev": "knex migrate:latest --env development",
     "migrate:test": "knex migrate:latest --env test"
