@@ -4,7 +4,8 @@
     "no-console": 0,
     "comma-dangle": 0,
     "arrow-body-style": 0,
-    "no-shadow": [ "error", { "allow": ["error", "err", "done", "resolve", "reject"] }]
+    "no-shadow": [ "error", { "allow": ["error", "err", "done", "resolve", "reject"] }],
+    import/no-extraneous-dependencies: [2, { devDependencies: true }]
   },
   "env": {
     "node": true,
