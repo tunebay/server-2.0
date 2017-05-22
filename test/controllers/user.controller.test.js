@@ -3,9 +3,12 @@ import UserController from '../../controllers/user.controller';
 
 xdescribe('👨🏼‍💻 User 🎮 Controller', () => {
   describe('#getAll', () => {
+    const request = {};
+    const response = { status: () => 200, json: obj => obj };
+
     it('gets all users', (done) => {
-      // need to mock req/res somehow
-      expect(UserController.getAll()).to.be.an('array');
+      const users = UserController.getAll(request, response);
+      console.log(users);
       done();
     });
   });
