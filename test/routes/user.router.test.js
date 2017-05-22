@@ -11,7 +11,7 @@ describe('🚏 /users', () => {
     knex.migrate.rollback()
     .then(() => {
       knex.migrate.latest()
-      .then(() => knex.seed.run()
+      .then(() => knex.seed.run() // seeds 12 users
       .then(() => done()));
     });
   });
