@@ -1,4 +1,5 @@
 import bcrypt from 'bcryptjs';
+import moment from 'moment';
 import User from '../models/user.model';
 import { setUserInfo, generateToken } from '../lib/auth';
 
@@ -18,7 +19,7 @@ export const register = (req, res) => {
   const displayName = req.body.displayName;
   const active = true;
   const passwordHash = bcrypt.hashSync(req.body.password, salt);
-  const createdAt = Date.now();
+  const createdAt = moment().format();
 
   const newUser = {
     username,
@@ -38,7 +39,7 @@ export const register = (req, res) => {
       .then((user) => {
         const userInfo = setUserInfo(user);
         res.status(201).json({
-          token: `JWT ${generateToken(userInfo)}`,
+          token: generateToken(userInfo),
           user: userInfo,
         });
       })

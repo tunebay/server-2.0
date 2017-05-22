@@ -2,6 +2,7 @@ import express from 'express';
 import morgan from 'morgan';
 import { Model } from 'objection';
 import bodyParser from 'body-parser';
+import validator from 'express-validator';
 import routes from './routes/index.router';
 import knex from './db/knex';
 
@@ -21,6 +22,7 @@ if (process.env.NODE_ENV !== 'test') {
 
 // app.use(cors(corsConfig));
 app.use(bodyParser.json());
+app.use(validator());
 app.use('/api/v1', routes);
 
 app.use((req, res, next) => {
