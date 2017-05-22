@@ -4,12 +4,12 @@ import User from '../../models/user.model';
 describe('👨🏼‍💻 User Model', () => {
   describe('.tableName', () => {
     it('is connected to the users table', () => {
-      expect(User.tableName()).to.equal('users');
+      expect(User.tableName).to.equal('users');
     });
   });
 
   describe('.jsonSchema', () => {
-    const jsonSchema = User.jsonSchema();
+    const jsonSchema = User.jsonSchema;
 
     it('is of type object', () => {
       expect(jsonSchema.type).to.equal('object');
