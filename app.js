@@ -2,7 +2,7 @@ import express from 'express';
 import morgan from 'morgan';
 import { Model } from 'objection';
 import bodyParser from 'body-parser';
-import routes from './router';
+import routes from './routes/index.router';
 import knex from './db/knex';
 
 Model.knex(knex);

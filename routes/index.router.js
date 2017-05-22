@@ -1,5 +1,6 @@
 import express from 'express';
-import UserController from './controllers/user.controller';
+import userRoutes from './user.router';
+// import authRoutes from './auth.router';
 
 const router = express.Router();
 
@@ -10,6 +11,7 @@ router.get('/', (req, res) => {
     });
 });
 
-router.get('/users', UserController.getAll);
+// router.use('/auth', authRoutes);
+router.use('/users', userRoutes);
 
 export default router;
