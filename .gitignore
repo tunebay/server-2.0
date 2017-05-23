@@ -3,3 +3,4 @@ npm-debug.log
 config.js
 TODO
 dist
+.env

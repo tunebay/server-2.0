@@ -6,6 +6,7 @@ import validator from 'express-validator';
 import routes from './routes/index.router';
 import knex from './db/knex';
 
+require('dotenv').config();
 global.Promise = require('bluebird');
 
 Model.knex(knex);
