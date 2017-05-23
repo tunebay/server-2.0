@@ -48,10 +48,10 @@ export const register = (req, res) => {
 };
 
 export const login = (req, res) => {
-  req.sanitize('username').trim();
+  req.sanitize('emailOrUsername').trim();
   req.sanitize('password').trim();
 
-  req.checkBody('username', 'Enter a username').notEmpty();
+  req.checkBody('emailOrUsername', 'Enter a email or username').notEmpty();
   req.checkBody('password', 'Enter a password').notEmpty();
 
   req.getValidationResult().then((result) => {
@@ -59,7 +59,7 @@ export const login = (req, res) => {
 
     const userInfo = setUserInfo(req.user);
     return res.status(200).json({
-      token: `JWT ${generateToken(userInfo)}`,
+      token: generateToken(userInfo),
       user: userInfo,
     });
   });
