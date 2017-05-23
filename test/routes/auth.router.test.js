@@ -36,5 +36,21 @@ describe('🚏 /auth', () => {
           done();
         });
     });
+
+    it('doesnt allow duplicate emails or usernames', (done) => {
+      request(app)
+        .post(`${AUTH_PATH}/register`)
+        .send({
+          displayName: 'Imposter',
+          email: 'mali@user.com',
+          username: 'malimichael', // taken username
+          password: 's3cr3t123'
+        })
+        .end((err, res) => {
+          expect(res.body).not.to.have.property('token');
+          expect(res.body).to.have.property('error');
+          done();
+        });
+    });
   });
 });
