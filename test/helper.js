@@ -7,23 +7,16 @@ const tables = [
   'users'
 ];
 
-const truncate = () => {
+export const truncate = () => {
   return Promise.each(tables, (table) => {
     return knex.raw(`TRUNCATE TABLE ${table} RESTART IDENTITY CASCADE`);
   });
 };
 
-if (process.env.NODE_ENV === 'test') {
-  beforeEach((done) => {
-    truncate()
-    .then(() => {
-      knex.migrate.latest()
-      .then(() => knex.seed.run() // seeds 12 users
-      .then(() => done()));
-    });
-  });
+export const migrate = () => {
+  return knex.migrate.latest();
+};
 
-  afterEach((done) => {
-    truncate().then(() => done());
-  });
-}
+export const seed = () => {
+  return knex.seed.run();
+};

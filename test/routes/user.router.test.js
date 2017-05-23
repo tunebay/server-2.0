@@ -2,23 +2,20 @@ import request from 'supertest';
 import { expect } from 'chai';
 import app from '../../app';
 import User from '../../models/user.model';
-import knex from '../../db/knex';
+import { truncate, migrate, seed } from '../helper';
 
 describe('🚏 /users', () => {
   const USERS_PATH = '/api/v1/users';
 
   beforeEach((done) => {
-    knex.migrate.rollback()
-    .then(() => {
-      knex.migrate.latest()
-      .then(() => knex.seed.run() // seeds 12 users
-      .then(() => done()));
-    });
+    truncate()
+    .then(() => migrate()
+    .then(() => seed()
+    .then(() => done())));
   });
 
   afterEach((done) => {
-    knex.migrate.rollback()
-    .then(() => done());
+    truncate().then(() => done());
   });
 
   describe('GET /', () => {
