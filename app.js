@@ -6,6 +6,8 @@ import validator from 'express-validator';
 import routes from './routes/index.router';
 import knex from './db/knex';
 
+global.Promise = require('bluebird');
+
 Model.knex(knex);
 
 const app = express();
