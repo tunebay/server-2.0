@@ -5,6 +5,7 @@ chai.use(require('chai-json-schema'));
 chai.use(require('chai-datetime'));
 
 const tables = [
+  'playlists',
   'users'
 ];
 

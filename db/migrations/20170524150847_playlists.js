@@ -2,7 +2,7 @@ exports.up = (knex) => {
   return knex.schema.createTable('playlists', (t) => {
     t.increments('id').notNullable().primary();
     t.integer('user_id').unsigned();
-    t.foreign('user_id').references('id').inTable('users');
+    t.foreign('user_id').references('id').inTable('users').onDelete('CASCADE');
     t.string('title', 100).notNullable();
     t.string('playlist_type', 24).notNullable();
     t.float('price', 5, 2).notNullable();

@@ -6,8 +6,8 @@ exports.up = (knex) => {
     t.string('email', 255).notNullable().unique();
     t.boolean('active').notNullable();
     t.string('account_type').nullable();
-    t.timestamp('last_login').notNullable();
-    t.timestamp('created_at').defaultTo(knex.fn.now());
+    t.timestamp('last_login').nullable();
+    t.timestamp('created_at').notNullable().defaultTo(knex.fn.now());
     t.string('password_hash').notNullable();
   });
 };

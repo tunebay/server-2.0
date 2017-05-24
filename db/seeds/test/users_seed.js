@@ -2,7 +2,7 @@ const faker = require('faker');
 const bcrypt = require('bcryptjs');
 
 exports.seed = (knex) => {
-  return knex('users').truncate() // Deletes ALL existing entries and restart sequence
+  return knex('users').del() // Deletes ALL existing entries and restart sequence
     .then(() => { // Inserts seed entries one by one in series
       // 1
       return knex('users').insert({
