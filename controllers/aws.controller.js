@@ -15,11 +15,8 @@ export const sign = (req, res) => {
     ACL: 'public-read'
   };
 
-  s3.getSignedUrl('putObject', params, (err, data) => {
-    if (err) {
-      console.log('WHHHHHYYYY', err);
-      return err;
-    }
+  s3.getSignedUrl('putObject', params, (error, data) => {
+    if (error) return res.status(500).json({ error });
     return res.status(200).json({ signedURL: data });
   });
 };
