@@ -163,6 +163,16 @@ describe('🚏 /auth', () => {
           done();
         });
     });
+
+    it('returns a failure if the username is reserved', (done) => {
+      request(app)
+        .post(`${AUTH_PATH}/usernamecheck`)
+        .send({ username: 'login' })
+        .end((err, res) => {
+          expect(res.body.message).to.equal('Username is reserved.');
+          done();
+        });
+    });
   });
 
   describe('POST /emailcheck', () => {

@@ -1,6 +1,7 @@
 import bcrypt from 'bcryptjs';
 import moment from 'moment';
 import User from '../models/user.model';
+import reservedUsernames from '../lib/reserved_usernames';
 import { setUserInfo, generateToken } from '../lib/auth';
 
 export const register = (req, res) => {
@@ -80,6 +81,9 @@ export const uniqueUsernameCheck = (req, res) => {
 
   req.getValidationResult().then((result) => {
     if (!result.isEmpty()) return res.status(400).json({ errors: result.mapped() });
+    if (reservedUsernames.includes(req.body.username)) {
+      return res.status(200).json({ message: 'Username is reserved.' });
+    }
 
     return User
       .query()
