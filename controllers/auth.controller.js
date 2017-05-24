@@ -76,7 +76,7 @@ export const login = (req, res) => {
 
 export const uniqueUsernameCheck = (req, res) => {
   req.sanitize('username').trim();
-  req.checkBody('username', 'Enter a username').notEmpty();
+  req.checkBody('username', 'Invalid username').notEmpty().isLength({ min: 3, max: 24 });
 
   req.getValidationResult().then((result) => {
     if (!result.isEmpty()) return res.status(400).json({ errors: result.mapped() });
@@ -95,7 +95,7 @@ export const uniqueUsernameCheck = (req, res) => {
 
 export const uniqueEmailCheck = (req, res) => {
   req.sanitize('email').trim();
-  req.checkBody('email', 'Enter a valid email').notEmpty().isEmail();
+  req.checkBody('email', 'Invalid email address').notEmpty().isLength({ min: 3, max: 255 }).isEmail();
 
   req.getValidationResult().then((result) => {
     if (!result.isEmpty()) return res.status(400).json({ errors: result.mapped() });
