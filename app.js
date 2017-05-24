@@ -2,6 +2,7 @@ import express from 'express';
 import morgan from 'morgan';
 import { Model } from 'objection';
 import bodyParser from 'body-parser';
+import cors from 'cors';
 import validator from 'express-validator';
 import routes from './routes/index.router';
 import knex from './db/knex';
@@ -18,12 +19,12 @@ if (process.env.NODE_ENV !== 'test') {
   app.use(morgan('combined'));
 }
 
-// const corsConfig = {
-//   origin: 'http://localhost:8080',
-//   optionsSuccessStatus: 200
-// };
+const corsConfig = {
+  origin: 'http://localhost:8080',
+  optionsSuccessStatus: 200
+};
 
-// app.use(cors(corsConfig));
+app.use(cors(corsConfig));
 app.use(bodyParser.json());
 app.use(validator());
 app.use('/api/v1', routes);
