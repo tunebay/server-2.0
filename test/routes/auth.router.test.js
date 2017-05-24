@@ -2,6 +2,7 @@ import request from 'supertest';
 import { expect } from 'chai';
 import { truncate, migrate, seed } from '../helper';
 import app from '../../app';
+import User from '../../models/user.model';
 
 describe('🚏 /auth', () => {
   const AUTH_PATH = '/api/v1/auth';
@@ -115,6 +116,28 @@ describe('🚏 /auth', () => {
         .end((err, res) => {
           expect(res.status).to.equal(401);
           done();
+        });
+    });
+
+    it('sets last login', (done) => {
+      const today = new Date();
+      request(app)
+        .post(`${AUTH_PATH}/login`)
+        .send({
+          emailOrUsername: 'mali@tunebay.com',
+          password: 'password123'
+        })
+        .end((err, res) => {
+          User
+            .query()
+            .where('id', res.body.user.id)
+            .first()
+            .then((user) => {
+              expect(user).to.be.instanceof(User);
+              expect(user.last_login).to.be.equalDate(today);
+              expect(user.last_login).to.be.afterDate(user.created_at);
+              done();
+            });
         });
     });
   });

@@ -9,9 +9,9 @@ export const register = (req, res) => {
   req.sanitize('password').trim();
 
   req.checkBody('username', 'Invalid username').notEmpty().isLength({ min: 3, max: 24 });
-  req.checkBody('email', 'Invalid email address').notEmpty().isLength({ min: 6, max: 255 }).isEmail();
+  req.checkBody('email', 'Invalid email address').notEmpty().isLength({ min: 3, max: 255 }).isEmail();
   req.checkBody('password', 'Invalid password').notEmpty().isLength({ min: 8 });
-  req.checkBody('displayName', 'Invalid display name').notEmpty().isLength({ min: 8, max: 50 });
+  req.checkBody('displayName', 'Invalid display name').notEmpty().isLength({ max: 50 });
 
   const salt = bcrypt.genSaltSync(10);
   const username = req.body.username;
@@ -56,11 +56,20 @@ export const login = (req, res) => {
 
   req.getValidationResult().then((result) => {
     if (!result.isEmpty()) return res.status(400).json({ errors: result.mapped() });
+    const loginTime = moment().format();
 
-    const userInfo = setUserInfo(req.user);
-    return res.status(200).json({
-      token: generateToken(userInfo),
-      user: userInfo,
-    });
+    return User
+      .query()
+      .patch({ last_login: loginTime })
+      .where('id', req.user.id)
+      .first()
+      .returning('*')
+      .then((user) => {
+        const userInfo = setUserInfo(user);
+        res.status(201).json({
+          token: generateToken(userInfo),
+          user: userInfo,
+        });
+      });
   });
 };
