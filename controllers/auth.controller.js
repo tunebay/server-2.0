@@ -88,7 +88,7 @@ export const uniqueUsernameCheck = (req, res) => {
       .then((user) => {
         return !user ?
           res.status(200).json({ message: 'success' }) :
-          res.status(422).json({ message: `The username ${user.username} is not available.` });
+          res.status(200).json({ message: 'Username is not available.' });
       });
   });
 };
@@ -106,8 +106,8 @@ export const uniqueEmailCheck = (req, res) => {
       .first()
       .then((user) => {
         return !user ?
-          res.status(200).json({ message: 'success' }) :
-          res.status(422).json({ message: 'Email already in use.' });
+        res.status(200).json({ message: 'success' }) :
+        res.status(200).json({ message: 'Email already in use.' });
       });
   });
 };

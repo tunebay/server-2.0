@@ -159,8 +159,7 @@ describe('🚏 /auth', () => {
         .post(`${AUTH_PATH}/usernamecheck`)
         .send({ username: 'malimichael' })
         .end((err, res) => {
-          expect(res.status).to.equal(422);
-          expect(res.body.message).to.equal('The username malimichael is not available.');
+          expect(res.body.message).to.equal('Username is not available.');
           done();
         });
     });
@@ -172,7 +171,6 @@ describe('🚏 /auth', () => {
         .post(`${AUTH_PATH}/emailcheck`)
         .send({ email: 'unique@email.com' })
         .end((err, res) => {
-          expect(res.status).to.equal(200);
           expect(res.body.message).to.equal('success');
           done();
         });
@@ -183,7 +181,6 @@ describe('🚏 /auth', () => {
         .post(`${AUTH_PATH}/emailcheck`)
         .send({ email: 'mali@tunebay.com' })
         .end((err, res) => {
-          expect(res.status).to.equal(422);
           expect(res.body.message).to.equal('Email already in use.');
           done();
         });
