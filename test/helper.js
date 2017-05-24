@@ -2,6 +2,7 @@ import chai from 'chai';
 import knex from '../db/knex';
 
 chai.use(require('chai-json-schema'));
+chai.use(require('chai-datetime'));
 
 const tables = [
   'users'
