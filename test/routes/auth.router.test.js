@@ -141,4 +141,52 @@ describe('🚏 /auth', () => {
         });
     });
   });
+
+  describe('POST /usernamecheck', () => {
+    it('returns success if username is not taken', (done) => {
+      request(app)
+        .post(`${AUTH_PATH}/usernamecheck`)
+        .send({ username: 'imsounique' })
+        .end((err, res) => {
+          expect(res.status).to.equal(200);
+          expect(res.body.message).to.equal('success');
+          done();
+        });
+    });
+
+    it('returns a failure if the username is taken', (done) => {
+      request(app)
+        .post(`${AUTH_PATH}/usernamecheck`)
+        .send({ username: 'malimichael' })
+        .end((err, res) => {
+          expect(res.status).to.equal(422);
+          expect(res.body.message).to.equal('The username malimichael is not available.');
+          done();
+        });
+    });
+  });
+
+  describe('POST /emailcheck', () => {
+    it('returns success if email is not taken', (done) => {
+      request(app)
+        .post(`${AUTH_PATH}/emailcheck`)
+        .send({ email: 'unique@email.com' })
+        .end((err, res) => {
+          expect(res.status).to.equal(200);
+          expect(res.body.message).to.equal('success');
+          done();
+        });
+    });
+
+    it('returns a failure if the email is taken', (done) => {
+      request(app)
+        .post(`${AUTH_PATH}/emailcheck`)
+        .send({ email: 'mali@tunebay.com' })
+        .end((err, res) => {
+          expect(res.status).to.equal(422);
+          expect(res.body.message).to.equal('Email already in use.');
+          done();
+        });
+    });
+  });
 });

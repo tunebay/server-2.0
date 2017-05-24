@@ -73,3 +73,41 @@ export const login = (req, res) => {
       });
   });
 };
+
+export const uniqueUsernameCheck = (req, res) => {
+  req.sanitize('username').trim();
+  req.checkBody('username', 'Enter a username').notEmpty();
+
+  req.getValidationResult().then((result) => {
+    if (!result.isEmpty()) return res.status(400).json({ errors: result.mapped() });
+
+    return User
+      .query()
+      .where('username', req.body.username)
+      .first()
+      .then((user) => {
+        return !user ?
+          res.status(200).json({ message: 'success' }) :
+          res.status(422).json({ message: `The username ${user.username} is not available.` });
+      });
+  });
+};
+
+export const uniqueEmailCheck = (req, res) => {
+  req.sanitize('email').trim();
+  req.checkBody('email', 'Enter a valid email').notEmpty().isEmail();
+
+  req.getValidationResult().then((result) => {
+    if (!result.isEmpty()) return res.status(400).json({ errors: result.mapped() });
+
+    return User
+      .query()
+      .where('email', req.body.email)
+      .first()
+      .then((user) => {
+        return !user ?
+          res.status(200).json({ message: 'success' }) :
+          res.status(422).json({ message: 'Email already in use.' });
+      });
+  });
+};
