@@ -42,7 +42,6 @@ describe('💿 Playlist Model', () => {
     const relationMappings = Playlist.relationMappings;
 
     it('has a relation to the users table', () => {
-      console.log(relationMappings);
       expect(relationMappings).to.have.property('user');
     });
   });
