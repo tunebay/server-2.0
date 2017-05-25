@@ -1,4 +1,5 @@
 import { Model } from 'objection';
+import Playlist from './playlist.model';
 
 class User extends Model {
   static get tableName() {
@@ -28,6 +29,19 @@ class User extends Model {
         created_at: { type: 'string', format: 'date-time' },
         password_hash: { type: 'string', minLength: 8, maxLength: 100 }
       },
+    };
+  }
+
+  static get relationMappings() {
+    return {
+      playlists: {
+        relation: Model.HasManyRelation,
+        modelClass: Playlist,
+        join: {
+          from: 'users.id',
+          to: 'playlists.user_id'
+        }
+      }
     };
   }
 }
