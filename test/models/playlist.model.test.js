@@ -37,4 +37,13 @@ describe('💿 Playlist Model', () => {
       expect(jsonSchema.properties.title).to.have.property('maxLength', 100);
     });
   });
+
+  describe('.relationMappings', () => {
+    const relationMappings = Playlist.relationMappings;
+
+    it('has a relation to the users table', () => {
+      console.log(relationMappings);
+      expect(relationMappings).to.have.property('user');
+    });
+  });
 });

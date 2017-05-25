@@ -42,7 +42,7 @@ class Playlist extends Model {
   static get relationMappings() {
     return {
       user: {
-        relation: Model.belongsToOneRelation,
+        relation: Model.BelongsToOneRelation,
         modelClass: User,
         join: {
           from: 'Playlist.user_id',
