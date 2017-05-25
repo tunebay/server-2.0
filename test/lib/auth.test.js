@@ -10,14 +10,16 @@ describe('🔑 Auth', () => {
   };
 
   describe('setUserInfo()', () => {
+    const userInfo = setUserInfo(newUser);
+
     it('sets the user info', () => {
-      expect(setUserInfo(newUser)).to.have.property('email');
-      expect(setUserInfo(newUser)).to.have.property('id');
-      expect(setUserInfo(newUser)).to.have.property('displayName');
-      expect(setUserInfo(newUser)).to.have.property('username');
-      expect(setUserInfo(newUser)).not.to.have.property('passwordHash');
-      expect(setUserInfo(newUser)).not.to.have.property('password_hash');
-      expect(setUserInfo(newUser)).not.to.have.property('password');
+      expect(userInfo).to.have.property('email');
+      expect(userInfo).to.have.property('id');
+      expect(userInfo).to.have.property('displayName');
+      expect(userInfo).to.have.property('username');
+      expect(userInfo).not.to.have.property('passwordHash');
+      expect(userInfo).not.to.have.property('password_hash');
+      expect(userInfo).not.to.have.property('password');
     });
   });
 
