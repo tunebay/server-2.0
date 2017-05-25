@@ -26,7 +26,7 @@ class Playlist extends Model {
         user_id: { type: 'integer' },
         title: { type: 'string', minLength: 1, maxLength: 100 },
         playlist_type: { type: 'string', maxLength: 24 },
-        price: { type: 'float', minimum: 0.00, maximum: 999.99 },
+        price: { type: 'number', minimum: 0.00, maximum: 999.99 },
         number_of_tracks: { type: 'integer' },
         duration: { type: 'integer' },
         can_pay_more: { type: 'boolean' },
