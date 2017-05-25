@@ -34,11 +34,12 @@ describe('💿 🚏 /playlists router', () => {
   };
 
   describe('POST /playlists', () => {
-    it('creates a new record in the database', (done) => {
+    it('creates a new record in the database and returns a 201', (done) => {
       request(app)
         .post(PLAYLIST_PATH)
         .send(playlist)
         .end((err, res) => {
+          expect(res.status).to.equal(201);
           expect(res.body).to.have.property('title', 'Alchemy');
           done();
         });
