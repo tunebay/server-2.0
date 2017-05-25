@@ -45,8 +45,8 @@ class Playlist extends Model {
         relation: Model.BelongsToOneRelation,
         modelClass: User,
         join: {
-          from: 'Playlist.user_id',
-          to: 'User.id'
+          from: 'playlists.user_id',
+          to: 'users.id'
         }
       }
     };
