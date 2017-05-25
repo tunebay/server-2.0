@@ -20,8 +20,9 @@ const generateUser = () => {
 };
 
 exports.seed = (knex) => {
-  return knex('users').del() // Deletes ALL existing entries and restart sequence
-    .then(() => { // Inserts seed entries one by one in series
+  return knex('users').del()
+    .then(() => knex.raw('ALTER SEQUENCE users_id_seq RESTART WITH 1'))
+    .then(() => {
       // 1
       return knex('users').insert({
         display_name: 'Mali Michael',

@@ -1,7 +1,7 @@
 const faker = require('faker');
 
 exports.seed = (knex) => {
-  return knex('playlists').del() // Deletes ALL existing entries and restart sequence
+  return knex('playlists').truncate()
     .then(() => { // Inserts seed entries one by one in series
       // 1
       return knex('playlists').insert({
