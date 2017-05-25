@@ -39,8 +39,18 @@ describe('💿 🚏 /playlists router', () => {
         .post(PLAYLIST_PATH)
         .send(playlist)
         .end((err, res) => {
-          console.log('RES', res.body);
           expect(res.body).to.have.property('title', 'Alchemy');
+          done();
+        });
+    });
+
+    it('formats the response correctly', (done) => {
+      request(app)
+        .post(PLAYLIST_PATH)
+        .send(playlist)
+        .end((err, res) => {
+          expect(res.body).to.have.property('playlistType');
+          expect(res.body).not.to.have.property('playlist_type');
           done();
         });
     });
