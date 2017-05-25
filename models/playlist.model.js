@@ -1,4 +1,5 @@
 import { Model } from 'objection';
+import User from './user.model';
 
 class Playlist extends Model {
   static get tableName() {
@@ -35,6 +36,19 @@ class Playlist extends Model {
         release_date: { type: 'string', format: 'date-time' },
         created_at: { type: 'string', format: 'date-time' }
       },
+    };
+  }
+
+  static get relationMappings() {
+    return {
+      user: {
+        relation: Model.belongsToOneRelation,
+        modelClass: User,
+        join: {
+          from: 'Playlist.user_id',
+          to: 'User.id'
+        }
+      }
     };
   }
 }
