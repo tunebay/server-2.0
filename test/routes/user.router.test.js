@@ -2,7 +2,7 @@ import request from 'supertest';
 import { expect } from 'chai';
 import app from '../../app';
 import User from '../../models/user.model';
-import { truncate, migrate, seed } from '../helper';
+import { truncate, migrate, createUser } from '../helper';
 
 describe('🚏 /users', () => {
   const USERS_PATH = '/api/v1/users';
@@ -10,7 +10,7 @@ describe('🚏 /users', () => {
   beforeEach((done) => {
     truncate()
     .then(() => migrate()
-    .then(() => seed()
+    .then(() => createUser()
     .then(() => done())));
   });
 
@@ -23,7 +23,7 @@ describe('🚏 /users', () => {
       request(app).get(USERS_PATH)
       .end((err, res) => {
         expect(res.body).to.be.an('array');
-        expect(res.body.length).to.equal(12);
+        expect(res.body.length).to.equal(1);
         done();
       });
     });

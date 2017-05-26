@@ -1,6 +1,6 @@
 import request from 'supertest';
 import { expect } from 'chai';
-import { truncate, migrate, seed } from '../helper';
+import { truncate, createUser, migrate } from '../helper';
 import app from '../../app';
 import User from '../../models/user.model';
 
@@ -10,7 +10,7 @@ describe('🚏 /auth', () => {
   beforeEach((done) => {
     truncate()
     .then(() => migrate()
-    .then(() => seed()
+    .then(() => createUser()
     .then(() => done())));
   });
 
@@ -44,7 +44,7 @@ describe('🚏 /auth', () => {
         .send({
           displayName: 'Imposter',
           email: 'mali@user.com', // unique email
-          username: 'malimichael', // taken username, see seeds.
+          username: 'malimichael', // taken username
           password: 's3cr3t123'
         })
         .end((err, res) => {
@@ -59,7 +59,7 @@ describe('🚏 /auth', () => {
         .post(`${AUTH_PATH}/register`)
         .send({
           displayName: 'Imposter',
-          email: 'mali@tunebay.com', // taken email, see seeds.
+          email: 'mali@tunebay.com', // taken email
           username: 'imsounique', // unique username
           password: 's3cr3t123'
         })
