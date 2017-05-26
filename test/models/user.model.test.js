@@ -1,33 +1,32 @@
-import { expect } from 'chai';
 import User from '../../models/user.model';
 
 describe('👨🏼‍💻 User Model', () => {
   describe('.tableName', () => {
-    it('is connected to the users table', () => {
-      expect(User.tableName).to.equal('users');
+    test('is connected to the users table', () => {
+      expect(User.tableName).toEqual('users');
     });
   });
 
   describe('.jsonSchema', () => {
     const jsonSchema = User.jsonSchema;
 
-    it('is of type object', () => {
+    test('is of type object', () => {
       expect(jsonSchema.type).to.equal('object');
     });
 
-    it('has 6 required feilds', () => {
-      expect(jsonSchema.required).to.be.an('array');
-      expect(jsonSchema.required.length).to.equal(6);
-      expect(jsonSchema.required).to.include('display_name');
-      expect(jsonSchema.required).to.include('email');
-      expect(jsonSchema.required).to.include('password_hash');
-      expect(jsonSchema.required).to.include('username');
-      expect(jsonSchema.required).to.include('active');
-      expect(jsonSchema.required).to.include('created_at');
+    test('has 6 required feilds', () => {
+      expect(typeof jsonSchema.required).toBe('array');
+      expect(jsonSchema.required.length).toEqual(6);
+      expect(jsonSchema.required).toInclude('display_name');
+      expect(jsonSchema.required).toInclude('email');
+      expect(jsonSchema.required).toInclude('password_hash');
+      expect(jsonSchema.required).toInclude('username');
+      expect(jsonSchema.required).toInclude('active');
+      expect(jsonSchema.required).toInclude('created_at');
     });
 
-    it('has 9 properties', () => {
-      expect(Object.keys(jsonSchema.properties).length).to.equal(9);
+    test('has 9 properties', () => {
+      expect(Object.keys(jsonSchema.properties).length).toEqual(9);
     });
   });
 });

@@ -1,10 +1,10 @@
-import chai from 'chai';
+// import chai from 'chai';
 import bcrypt from 'bcryptjs';
 import faker from 'faker';
 import knex from '../db/knex';
 
-chai.use(require('chai-json-schema'));
-chai.use(require('chai-datetime'));
+// chai.use(require('chai-json-schema'));
+// chai.use(require('chai-datetime'));
 
 const tables = [
   'playlists',

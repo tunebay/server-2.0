@@ -1,6 +1,5 @@
 import request from 'supertest';
 import v4 from 'uuid';
-import { expect } from 'chai';
 import app from '../../app';
 
 describe('🚏 /aws', () => {
@@ -9,13 +8,13 @@ describe('🚏 /aws', () => {
   describe('/s3/sign', () => {
     const filename = `users/music/${v4()}`;
 
-    it('sends back a signed URL on request', (done) => {
+    test('sends back a signed URL on request', (done) => {
       request(app)
         .get(`${AWS_PATH}/s3/sign`)
         .query({ filename, filetype: 'audio/mp3' })
         .end((err, res) => {
-          expect(res.body).to.have.property('signedURL');
-          expect(res.body.signedURL).to.contain(filename);
+          expect(res.body).toHaveProperty('signedURL');
+          expect(res.body.signedURL).toMatch(filename);
           done();
         });
     });

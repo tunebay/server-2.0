@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import { formatForSQLInsert } from '../../lib/helpers';
 
 describe('😎 Helper funcs', () => {
@@ -30,19 +29,19 @@ describe('😎 Helper funcs', () => {
   };
 
   describe('formatForSQLInsert()', () => {
-    it('converts property names from camelCase to underscores', () => {
+    test('converts property names from camelCase to underscores', () => {
       const newPlaylist = formatForSQLInsert(playlist);
-      expect(newPlaylist).to.have.property('number_of_tracks', 11);
-      expect(newPlaylist).to.have.property('title', 'Alchemy');
-      expect(newPlaylist).to.have.property('can_pay_more', true);
-      expect(newPlaylist).not.to.have.property('canPayMore');
+      expect(newPlaylist).toHaveProperty('number_of_tracks', 11);
+      expect(newPlaylist).toHaveProperty('title', 'Alchemy');
+      expect(newPlaylist).toHaveProperty('can_pay_more', true);
+      expect(newPlaylist).not.toHaveProperty('canPayMore');
     });
 
-    it('results in an object with the same about of properties', () => {
+    test('results in an object with the same about of properties', () => {
       const newPlaylist = formatForSQLInsert(playlist);
       const newPlaylist2 = formatForSQLInsert(playlist2);
-      expect(Object.keys(newPlaylist).length).to.equal(12);
-      expect(Object.keys(newPlaylist2).length).to.equal(9);
+      expect(Object.keys(newPlaylist).length).toEqual(12);
+      expect(Object.keys(newPlaylist2).length).toEqual(9);
     });
   });
 });

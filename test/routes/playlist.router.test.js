@@ -1,5 +1,4 @@
 import request from 'supertest';
-import { expect } from 'chai';
 import { omit } from 'lodash';
 import app from '../../app';
 import { truncate, migrate, createUser } from '../helper';
@@ -34,37 +33,37 @@ describe('💿 🚏 /playlists router', () => {
   };
 
   describe('POST /playlists', () => {
-    it('creates a new record in the database and returns a 201', (done) => {
+    test('creates a new record in the database and returns a 201', (done) => {
       request(app)
         .post(PLAYLIST_PATH)
         .send(playlist)
         .end((err, res) => {
-          expect(res.status).to.equal(201);
-          expect(res.body).to.have.property('playlist');
-          expect(res.body.playlist).to.have.property('title', 'Alchemy');
+          expect(res.status).toEqual(201);
+          expect(res.body).toHaveProperty('playlist');
+          expect(res.body.playlist).toHaveProperty('title', 'Alchemy');
           done();
         });
     });
 
-    it('formats the response correctly', (done) => {
+    test('formats the response correctly', (done) => {
       request(app)
         .post(PLAYLIST_PATH)
         .send(playlist)
         .end((err, res) => {
-          expect(res.body.playlist).to.have.property('playlistType');
-          expect(res.body.playlist).not.to.have.property('playlist_type');
+          expect(res.body.playlist).toHaveProperty('playlistType');
+          expect(res.body.playlist).not.toHaveProperty('playlist_type');
           done();
         });
     });
 
-    it('will not save the playlist without a required fields', (done) => {
+    test('will not save the playlist without a required fields', (done) => {
       const badPlaylist = omit(playlist, 'title');
       request(app)
         .post(PLAYLIST_PATH)
         .send(badPlaylist)
         .end((err, res) => {
-          expect(res.body.error.message).to.include('should have required property \'title\'');
-          expect(res.status).to.equal(500);
+          expect(res.body.error.message).toMatch('should have required property \'title\'');
+          expect(res.status).toEqual(500);
           done();
         });
     });
