@@ -1,6 +1,6 @@
 import request from 'supertest';
 import { expect } from 'chai';
-import faker from 'faker';
+import { omit } from 'lodash';
 import app from '../../app';
 import { truncate, migrate, createUser } from '../helper';
 
@@ -19,18 +19,18 @@ describe('💿 🚏 /playlists router', () => {
   });
 
   const playlist = {
-    user_id: 1,
+    userId: 1,
     title: 'Alchemy',
-    playlist_type: 'album',
+    playlistType: 'album',
     price: 8.99,
-    number_of_tracks: 11,
+    numberOfTracks: 11,
     duration: 2580,
-    can_pay_more: true,
+    canPayMore: true,
     permalink: 'https://tunebay.com/malimichael/alchemy',
     artwork: 'https://tunebay-upload.s3-eu-west-2.amazonaws.com/users/artwork/85cd2abe-3a96-4d9c-91a2-b4cb066709c4',
-    purchase_message: 'Thanks for the support',
-    release_date: faker.date.past(),
-    created_at: faker.date.past(),
+    purchaseMessage: 'Thanks for the support',
+    releaseDate: '2017-12-19T16:39:57-08:00',
+    createdAt: '2017-12-19T16:39:57-08:00'
   };
 
   describe('POST /playlists', () => {
@@ -40,7 +40,8 @@ describe('💿 🚏 /playlists router', () => {
         .send(playlist)
         .end((err, res) => {
           expect(res.status).to.equal(201);
-          expect(res.body).to.have.property('title', 'Alchemy');
+          expect(res.body).to.have.property('playlist');
+          expect(res.body.playlist).to.have.property('title', 'Alchemy');
           done();
         });
     });
@@ -50,8 +51,20 @@ describe('💿 🚏 /playlists router', () => {
         .post(PLAYLIST_PATH)
         .send(playlist)
         .end((err, res) => {
-          expect(res.body).to.have.property('playlistType');
-          expect(res.body).not.to.have.property('playlist_type');
+          expect(res.body.playlist).to.have.property('playlistType');
+          expect(res.body.playlist).not.to.have.property('playlist_type');
+          done();
+        });
+    });
+
+    it('will not save the playlist without any of the required fields', (done) => {
+      const badPlaylist = omit(playlist, 'title');
+      request(app)
+        .post(PLAYLIST_PATH)
+        .send(badPlaylist)
+        .end((err, res) => {
+          expect(res.body.error.message).to.include('should have required property \'title\'');
+          expect(res.status).to.equal(500);
           done();
         });
     });
