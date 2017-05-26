@@ -57,7 +57,7 @@ describe('💿 🚏 /playlists router', () => {
         });
     });
 
-    it('will not save the playlist without any of the required fields', (done) => {
+    it('will not save the playlist without a required fields', (done) => {
       const badPlaylist = omit(playlist, 'title');
       request(app)
         .post(PLAYLIST_PATH)
