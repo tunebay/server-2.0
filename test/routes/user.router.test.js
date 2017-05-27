@@ -46,5 +46,25 @@ describe('🚏 /users', () => {
         done();
       });
     });
+
+    it('returns an error when no user is found', (done) => {
+      request(app).get(`${USERS_PATH}/imnotauser`)
+      .end((err, res) => {
+        expect(res.body).not.to.have.property('user');
+        expect(res.body).to.have.property('error', 'user not found.');
+        done();
+      });
+    });
+  });
+
+  describe('GET /:username/playlists', () => {
+    it('Retrieves a single user and their assosiated playlists', (done) => {
+      request(app).get(`${USERS_PATH}/malimichael/playlists`)
+      .end((err, res) => {
+        expect(res.body.user).to.have.property('username', 'malimichael');
+        expect(res.body.user).to.have.property('email', 'mali@tunebay.com');
+        done();
+      });
+    });
   });
 });
