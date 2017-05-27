@@ -36,4 +36,15 @@ describe('🚏 /users', () => {
       });
     });
   });
+
+  describe('GET /:username', () => {
+    it('Retrieves a single user by username', (done) => {
+      request(app).get(`${USERS_PATH}/malimichael`)
+      .end((err, res) => {
+        expect(res.body.user).to.have.property('username', 'malimichael');
+        expect(res.body.user).to.have.property('email', 'mali@tunebay.com');
+        done();
+      });
+    });
+  });
 });
