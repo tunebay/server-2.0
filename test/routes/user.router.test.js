@@ -2,7 +2,7 @@ import request from 'supertest';
 import { expect } from 'chai';
 import app from '../../app';
 import User from '../../models/user.model';
-import { truncate, migrate, createUser } from '../helper';
+import { truncate, migrate, createUser, createPlaylist } from '../helper';
 
 describe('🚏 /users', () => {
   const USERS_PATH = '/api/v1/users';
@@ -58,11 +58,23 @@ describe('🚏 /users', () => {
   });
 
   describe('GET /:username/playlists', () => {
+    beforeEach((done) => {
+      truncate()
+      .then(() => migrate()
+      .then(() => createUser()
+      .then(() => createPlaylist()
+      .then(() => done()))));
+    });
+
     it('Retrieves a single user and their assosiated playlists', (done) => {
       request(app).get(`${USERS_PATH}/malimichael/playlists`)
       .end((err, res) => {
         expect(res.body.user).to.have.property('username', 'malimichael');
         expect(res.body.user).to.have.property('email', 'mali@tunebay.com');
+        expect(res.body.user).to.have.property('playlists');
+        expect(res.body.user.playlists[0]).to.have.property('numberOfTracks', 11);
+        expect(res.body.user.playlists[0]).to.have.property('title', 'Alchemy');
+        expect(res.body.user.playlists[0]).to.have.property('playlistType', 'album');
         done();
       });
     });
