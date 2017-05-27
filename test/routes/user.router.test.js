@@ -4,7 +4,7 @@ import app from '../../app';
 import User from '../../models/user.model';
 import { truncate, migrate, createUser, createPlaylist } from '../helper';
 
-describe('🚏 /users', () => {
+describe('👨🏼‍💻 🚏 /users', () => {
   const USERS_PATH = '/api/v1/users';
 
   beforeEach((done) => {

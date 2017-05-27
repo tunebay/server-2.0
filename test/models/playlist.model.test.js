@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import Playlist from '../../models/playlist.model';
 
-describe('💿 Playlist Model', () => {
+describe('💿 🚀 Playlist Model', () => {
   describe('.tableName', () => {
     it('is connected to the playlists table', () => {
       expect(Playlist.tableName).to.equal('playlists');

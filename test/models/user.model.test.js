@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import User from '../../models/user.model';
 
-describe('👨🏼‍💻 User Model', () => {
+describe('👨🏼‍💻 🚀 User Model', () => {
   describe('.tableName', () => {
     it('is connected to the users table', () => {
       expect(User.tableName).to.equal('users');

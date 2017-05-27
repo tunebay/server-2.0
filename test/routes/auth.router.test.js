@@ -4,7 +4,7 @@ import { truncate, createUser, migrate } from '../helper';
 import app from '../../app';
 import User from '../../models/user.model';
 
-describe('🚏 /auth', () => {
+describe('🔑 🚏 /auth', () => {
   const AUTH_PATH = '/api/v1/auth';
 
   beforeEach((done) => {

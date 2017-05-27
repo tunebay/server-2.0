@@ -3,7 +3,7 @@ import v4 from 'uuid';
 import { expect } from 'chai';
 import app from '../../app';
 
-describe('🚏 /aws', () => {
+describe('🌲 🚏 /aws', () => {
   const AWS_PATH = '/api/v1/aws';
 
   describe('/s3/sign', () => {
