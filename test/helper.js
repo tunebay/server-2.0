@@ -1,6 +1,5 @@
 import chai from 'chai';
 import bcrypt from 'bcryptjs';
-import faker from 'faker';
 import knex from '../db/knex';
 
 chai.use(require('chai-json-schema'));
@@ -18,8 +17,8 @@ export const createUser = () => {
     email: 'mali@tunebay.com',
     active: true,
     account_type: 'artist',
-    created_at: faker.date.past(),
-    last_login: faker.date.past(),
+    created_at: '2017-01-19T16:39:57-08:00',
+    last_login: '2017-01-22T16:39:57-08:00',
     password_hash: bcrypt.hashSync('password123')
   });
 };
