@@ -90,11 +90,30 @@ describe('👨🏼‍💻 🚏 /users', () => {
       });
     });
 
+    it('can query by email', (done) => {
+      request(app).get(`${USERS_PATH}/search?email=mali@tunebay.com`)
+      .end((err, res) => {
+        expect(res.body.user).to.have.property('username', 'malimichael');
+        expect(res.body.user).to.have.property('email', 'mali@tunebay.com');
+        done();
+      });
+    });
+
     it('returns an error when no user is found', (done) => {
       request(app).get(`${USERS_PATH}/search?username=idontexists`)
       .end((err, res) => {
         expect(res.body).not.to.have.property('user');
         expect(res.body).to.have.property('error', 'user not found.');
+        done();
+      });
+    });
+
+    it('doesnt allow for invalid query params', (done) => {
+      request(app).get(`${USERS_PATH}/search?name=malimichael`)
+      .end((err, res) => {
+        expect(res.body).not.to.have.property('user');
+        expect(res.status).to.equal(400);
+        expect(res.body).to.have.property('error', 'One or more query parameters are invalid.');
         done();
       });
     });
