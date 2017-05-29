@@ -79,4 +79,24 @@ describe('👨🏼‍💻 🚏 /users', () => {
       });
     });
   });
+
+  describe('GET /search?', () => {
+    it('Retrieves a single user based on the query string', (done) => {
+      request(app).get(`${USERS_PATH}/search?username=malimichael`)
+      .end((err, res) => {
+        expect(res.body.user).to.have.property('username', 'malimichael');
+        expect(res.body.user).to.have.property('email', 'mali@tunebay.com');
+        done();
+      });
+    });
+
+    it('returns an error when no user is found', (done) => {
+      request(app).get(`${USERS_PATH}/search?username=idontexists`)
+      .end((err, res) => {
+        expect(res.body).not.to.have.property('user');
+        expect(res.body).to.have.property('error', 'user not found.');
+        done();
+      });
+    });
+  });
 });
