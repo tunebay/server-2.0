@@ -4,6 +4,7 @@ import { Model } from 'objection';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import validator from 'express-validator';
+import customValidators from './lib/validator_middlewares';
 import routes from './routes/index.router';
 import knex from './db/knex';
 
@@ -26,7 +27,7 @@ const corsConfig = {
 
 app.use(cors(corsConfig));
 app.use(bodyParser.json());
-app.use(validator());
+app.use(validator({ customValidators }));
 app.use('/api/v1', routes);
 
 app.use((req, res, next) => {
