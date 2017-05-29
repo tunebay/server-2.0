@@ -1,7 +1,7 @@
 import express from 'express';
 import {
   getAll,
-  getByUsername,
+  getById,
   getUserWithPlaylists,
   getByQuery
 } from '../controllers/user.controller';
@@ -9,8 +9,8 @@ import {
 const router = express.Router();
 
 router.get('/', getAll);
-router.get('/search', getByQuery)
-router.get('/:username', getByUsername);
-router.get('/:username/playlists', getUserWithPlaylists);
+router.get('/search', getByQuery);
+router.get('/:id', getById);
+router.get('/:id/playlists', getUserWithPlaylists);
 
 export default router;

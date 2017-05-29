@@ -67,7 +67,7 @@ describe('👨🏼‍💻 🚏 /users', () => {
     });
 
     it('Retrieves a single user and their assosiated playlists', (done) => {
-      request(app).get(`${USERS_PATH}/malimichael/playlists`)
+      request(app).get(`${USERS_PATH}/1/playlists`)
       .end((err, res) => {
         expect(res.body.user).to.have.property('username', 'malimichael');
         expect(res.body.user).to.have.property('email', 'mali@tunebay.com');
@@ -75,6 +75,15 @@ describe('👨🏼‍💻 🚏 /users', () => {
         expect(res.body.user.playlists[0]).to.have.property('numberOfTracks', 11);
         expect(res.body.user.playlists[0]).to.have.property('title', 'Alchemy');
         expect(res.body.user.playlists[0]).to.have.property('playlistType', 'album');
+        done();
+      });
+    });
+
+    it('returns an error when no user is found', (done) => {
+      request(app).get(`${USERS_PATH}/200/playlists`)
+      .end((err, res) => {
+        expect(res.body).not.to.have.property('user');
+        expect(res.body).to.have.property('error', 'user not found.');
         done();
       });
     });
