@@ -9,7 +9,7 @@ export const register = (req, res) => {
   req.sanitize('email').trim();
   req.sanitize('password').trim();
 
-  req.checkBody('username', 'Invalid username').notEmpty().isLength({ min: 3, max: 24 });
+  req.checkBody('username', 'Invalid username').notEmpty().isLength({ min: 3, max: 24 }).isUsername();
   req.checkBody('email', 'Invalid email address').notEmpty().isLength({ min: 3, max: 255 }).isEmail();
   req.checkBody('password', 'Invalid password').notEmpty().isLength({ min: 8 });
   req.checkBody('displayName', 'Invalid display name').notEmpty().isLength({ max: 50 });
