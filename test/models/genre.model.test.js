@@ -23,4 +23,12 @@ describe('‍🎻 🚀 Genre Model', () => {
       expect(Object.keys(jsonSchema.properties).length).to.equal(2);
     });
   });
+
+  describe('.relationMappings', () => {
+    const relationMappings = Genre.relationMappings;
+
+    it('has a many to many relation to the genre table', () => {
+      expect(relationMappings).to.have.property('playlist');
+    });
+  });
 });
