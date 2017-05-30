@@ -67,5 +67,18 @@ describe('💿 🚏 /playlists router', () => {
           done();
         });
     });
+
+    it('Saves a playlist and its genres', (done) => {
+      const playlistWithGenre = { ...playlist, genreIds: [14, 33, 22] };
+      request(app)
+        .post(PLAYLIST_PATH)
+        .send(playlistWithGenre)
+        .end((err, res) => {
+          expect(res.status).to.equal(201);
+          expect(res.body.playlist).to.have.property('genres');
+          expect(res.body.playlist.genres).to.be.an('array');
+          done();
+        });
+    });
   });
 });
