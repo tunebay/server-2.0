@@ -44,5 +44,9 @@ describe('💿 🚀 Playlist Model', () => {
     it('has a relation to the users table', () => {
       expect(relationMappings).to.have.property('user');
     });
+
+    it('has a many to many relation to the genre table', () => {
+      expect(relationMappings).to.have.property('genre');
+    });
   });
 });
