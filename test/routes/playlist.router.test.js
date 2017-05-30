@@ -63,7 +63,6 @@ describe('💿 🚏 /playlists router', () => {
         .post(PLAYLIST_PATH)
         .send(badPlaylist)
         .end((err, res) => {
-          expect(res.body.error.message).to.include('should have required property \'title\'');
           expect(res.status).to.equal(500);
           done();
         });
