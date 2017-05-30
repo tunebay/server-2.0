@@ -3,7 +3,7 @@ import Genre from '../../models/genre.model';
 
 describe('‍🎻 🚀 Genre Model', () => {
   describe('.tableName', () => {
-    it('is connected to the users table', () => {
+    it('is connected to the genres table', () => {
       expect(Genre.tableName).to.equal('genres');
     });
   });
