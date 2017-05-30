@@ -30,7 +30,8 @@ describe('💿 🚏 /playlists router', () => {
     artwork: 'https://tunebay-upload.s3-eu-west-2.amazonaws.com/users/artwork/85cd2abe-3a96-4d9c-91a2-b4cb066709c4',
     purchaseMessage: 'Thanks for the support',
     releaseDate: '2017-12-19T16:39:57-08:00',
-    createdAt: '2017-12-19T16:39:57-08:00'
+    createdAt: '2017-12-19T16:39:57-08:00',
+    genreIds: [14, 33, 12]
   };
 
   describe('POST /playlists', () => {
@@ -63,7 +64,8 @@ describe('💿 🚏 /playlists router', () => {
         .post(PLAYLIST_PATH)
         .send(badPlaylist)
         .end((err, res) => {
-          expect(res.status).to.equal(500);
+          expect(res.body.errors).to.have.property('title');
+          expect(res.status).to.equal(400);
           done();
         });
     });
