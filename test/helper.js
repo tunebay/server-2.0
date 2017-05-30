@@ -37,6 +37,12 @@ export const createPlaylist = () => {
     purchase_message: 'Thanks for the support',
     release_date: '2016-01-19T16:39:57-08:00',
     created_at: '2017-02-19T16:39:57-08:00'
+  })
+  .then(() => {
+    return knex('playlists_genres').insert([
+      { genre_id: 14, playlist_id: 1 },
+      { genre_id: 34, playlist_id: 1 }
+    ]);
   });
 };
 
