@@ -79,6 +79,16 @@ describe('👨🏼‍💻 🚏 /users', () => {
       });
     });
 
+    it('users assosiated playlists have assosiated genres', (done) => {
+      request(app).get(`${USERS_PATH}/1/playlists`)
+      .end((err, res) => {
+        console.log(res.body.user.playlists[0]);
+        expect(res.body.user.playlists[0]).to.have.property('genres');
+        expect(res.body.user.playlists[0].generes).to.be.an('array');
+        done();
+      });
+    });
+
     it('returns an error when no user is found', (done) => {
       request(app).get(`${USERS_PATH}/200/playlists`)
       .end((err, res) => {
