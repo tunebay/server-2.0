@@ -50,7 +50,7 @@ class Playlist extends Model {
           to: 'users.id'
         }
       },
-      genre: {
+      genres: {
         relation: Model.ManyToManyRelation,
         modelClass: Genre,
         join: {

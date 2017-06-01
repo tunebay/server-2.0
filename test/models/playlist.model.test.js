@@ -46,7 +46,7 @@ describe('💿 🚀 Playlist Model', () => {
     });
 
     it('has a many to many relation to the genre table', () => {
-      expect(relationMappings).to.have.property('genre');
+      expect(relationMappings).to.have.property('genres');
     });
   });
 });
