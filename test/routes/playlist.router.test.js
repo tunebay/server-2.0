@@ -3,6 +3,7 @@ import { expect } from 'chai';
 import { omit } from 'lodash';
 import app from '../../app';
 import { truncate, migrate, createUser } from '../helper';
+import { generateToken } from '../../lib/auth';
 
 const PLAYLIST_PATH = '/api/v1/playlists';
 
@@ -17,6 +18,8 @@ describe('💿 🚏 /playlists router', () => {
   afterEach((done) => {
     truncate().then(() => done());
   });
+
+  const token = generateToken({ id: 1 });
 
   const playlist = {
     userId: 1,
@@ -38,6 +41,8 @@ describe('💿 🚏 /playlists router', () => {
     it('creates a new record in the database and returns a 201', (done) => {
       request(app)
         .post(PLAYLIST_PATH)
+        .set('Accept', 'application/json')
+        .set('authorization', token)
         .send(playlist)
         .end((err, res) => {
           expect(res.status).to.equal(201);
@@ -50,6 +55,8 @@ describe('💿 🚏 /playlists router', () => {
     it('formats the response correctly', (done) => {
       request(app)
         .post(PLAYLIST_PATH)
+        .set('Accept', 'application/json')
+        .set('authorization', token)
         .send(playlist)
         .end((err, res) => {
           expect(res.body.playlist).to.have.property('playlistType');
@@ -62,6 +69,8 @@ describe('💿 🚏 /playlists router', () => {
       const badPlaylist = omit(playlist, 'title');
       request(app)
         .post(PLAYLIST_PATH)
+        .set('Accept', 'application/json')
+        .set('authorization', token)
         .send(badPlaylist)
         .end((err, res) => {
           expect(res.body.errors).to.have.property('title');
@@ -74,11 +83,28 @@ describe('💿 🚏 /playlists router', () => {
       const playlistWithGenre = { ...playlist, genreIds: [14, 33, 22] };
       request(app)
         .post(PLAYLIST_PATH)
+        .set('Accept', 'application/json')
+        .set('authorization', token)
         .send(playlistWithGenre)
         .end((err, res) => {
           expect(res.status).to.equal(201);
           expect(res.body.playlist).to.have.property('genres');
           expect(res.body.playlist.genres).to.be.an('array');
+          done();
+        });
+    });
+
+    it('It will not save if user is not authd', (done) => {
+      const playlistWithGenre = { ...playlist, genreIds: [14, 33, 22] };
+      request(app)
+        .post(PLAYLIST_PATH)
+        // User not auth'd without sending valid token
+        // .set('Accept', 'application/json')
+        // .set('authorization', token)
+        .send(playlistWithGenre)
+        .end((err, res) => {
+          expect(res.status).to.equal(401);
+          expect(res.body).not.to.have.property('playlists');
           done();
         });
     });

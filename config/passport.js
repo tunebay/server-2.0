@@ -12,7 +12,7 @@ const localOptions = {
 
 const localLogin = new LocalStrategy(localOptions, (emailOrUsername, password, done) => {
   const credentialType = emailOrUsername.match(/@/) ? 'email' : 'username';
-  User
+  return User
     .query()
     .where(credentialType, emailOrUsername).first()
     .then((user) => {
@@ -31,9 +31,9 @@ const jwtOptions = {
 };
 
 const jwtLogin = new JwtStrategy(jwtOptions, (payload, done) => {
-  User
+  return User
     .query()
-    .where('id', payload.id).first()
+    .where('id', payload.sub).first()
     .then((user) => {
       if (!user) return done(null, false);
       return done(null, user);
@@ -43,3 +43,6 @@ const jwtLogin = new JwtStrategy(jwtOptions, (payload, done) => {
 
 passport.use(jwtLogin);
 passport.use(localLogin);
+
+export const requireAuth = passport.authenticate('jwt', { session: false });
+export const requireLogin = passport.authenticate('local', { session: false });

@@ -1,6 +1,5 @@
 import express from 'express';
-import passport from 'passport';
-import '../config/passport';
+import { requireLogin } from '../config/passport';
 import {
   register,
   login,
@@ -9,9 +8,6 @@ import {
 } from '../controllers/auth.controller';
 
 const router = express.Router();
-
-// const requireAuth = passport.authenticate('jwt', { session: false });
-const requireLogin = passport.authenticate('local', { session: false });
 
 router.post('/register', register);
 router.post('/login', requireLogin, login);
