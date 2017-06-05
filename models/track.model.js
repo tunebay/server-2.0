@@ -14,7 +14,7 @@ class Track extends Model {
         'name',
         'duration',
         'playlist_position',
-        'sigle',
+        'single',
         'file_type',
         'location'
       ],
