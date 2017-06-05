@@ -6,10 +6,10 @@ exports.up = (knex) => {
     t.string('name', 100).notNullable();
     t.integer('duration').notNullable();
     t.integer('playlist_position').notNullable();
-    t.float('price', 5, 2);
+    t.float('price', 5, 2).nullable();
     t.boolean('single').notNullable();
     t.string('file_type').notNullable();
-    t.string('location', 255).nullable();
+    t.string('location', 255).notNullable();
   });
 };
 
