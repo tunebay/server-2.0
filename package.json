@@ -10,8 +10,8 @@
     "migrate:test": "knex migrate:latest --env test",
     "seed:dev": "knex seed:run --env development",
     "seed:test": "knex seed:run --env test",
-    "rollback:test": "knex rollback:latest --env test",
-    "rollback:dev": "knex rollback:latest --env development"
+    "rollback:test": "knex migrate:rollback --env test",
+    "rollback:dev": "knex migrate:rollback --env development"
   },
   "repository": {
     "type": "git",
