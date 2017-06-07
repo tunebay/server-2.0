@@ -24,7 +24,7 @@ class Track extends Model {
         playlist_id: { type: 'integer' },
         name: { type: 'string', minLength: 1, maxLength: 100 },
         duration: { type: 'integer' },
-        price: { type: 'number', minimum: 0.00, maximum: 999.99 },
+        price: { type: ['number', 'null'], minimum: 0.00, maximum: 999.99 },
         playlist_position: { type: 'integer' },
         location: { type: 'string' },
         single: { type: 'boolean' },

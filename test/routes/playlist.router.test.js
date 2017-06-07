@@ -34,7 +34,8 @@ describe('💿 🚏 /playlists router', () => {
     purchaseMessage: 'Thanks for the support',
     releaseDate: '2017-12-19T16:39:57-08:00',
     createdAt: '2017-12-19T16:39:57-08:00',
-    genreIds: [14, 33, 12]
+    tracks: testTracks
+    // genreIds: [14, 33, 12]
   };
 
   describe('POST /playlists', () => {
@@ -46,8 +47,7 @@ describe('💿 🚏 /playlists router', () => {
           .send(playlist)
           .end((err, res) => {
             expect(res.status).to.equal(201);
-            expect(res.body).to.have.property('playlist');
-            expect(res.body.playlist).to.have.property('title', 'Alchemy');
+            expect(res.body).to.have.property('title', 'Alchemy');
             done();
           });
       });
@@ -58,8 +58,8 @@ describe('💿 🚏 /playlists router', () => {
           .set('authorization', token)
           .send(playlist)
           .end((err, res) => {
-            expect(res.body.playlist).to.have.property('playlistType');
-            expect(res.body.playlist).not.to.have.property('playlist_type');
+            expect(res.body).to.have.property('playlistType');
+            expect(res.body).not.to.have.property('playlist_type');
             done();
           });
       });
@@ -91,7 +91,7 @@ describe('💿 🚏 /playlists router', () => {
       });
     });
 
-    describe('Playlist with genres', () => {
+    xdescribe('Playlist with genres', () => {
       it('Saves a playlist and its genres', (done) => {
         request(app)
         .post(PLAYLIST_PATH)
@@ -106,17 +106,17 @@ describe('💿 🚏 /playlists router', () => {
       });
     });
 
-    xdescribe('Playlist with genres and tracks', () => {
-      const playlistWithTracks = { ...playlist, tracks: testTracks };
+    describe('Playlist and tracks', () => {
+      // const playlistWithTracks = { ...playlist, tracks: testTracks };
       it('It saves a playlists tracks to the database', (done) => {
         request(app)
         .post(PLAYLIST_PATH)
         .set('authorization', token)
-        .send(playlistWithTracks)
+        .send(playlist)
         .end((err, res) => {
           expect(res.status).to.equal(201);
-          expect(res.body.playlist).to.have.property('tracks');
-          expect(res.body.playlist.tracks).to.be.an('array');
+          expect(res.body).to.have.property('tracks');
+          expect(res.body.tracks).to.be.an('array');
           done();
         });
       });
