@@ -1,6 +1,7 @@
 import { Model } from 'objection';
 import User from './user.model';
 import Genre from './genre.model';
+import Track from './track.model';
 
 class Playlist extends Model {
   static get tableName() {
@@ -48,6 +49,14 @@ class Playlist extends Model {
         join: {
           from: 'playlists.user_id',
           to: 'users.id'
+        }
+      },
+      tracks: {
+        relation: Model.HasManyRelation,
+        modelClass: Track,
+        join: {
+          from: 'playlists.id',
+          to: 'tracks.playlist_id'
         }
       },
       genres: {
