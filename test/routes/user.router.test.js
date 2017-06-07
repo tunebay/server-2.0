@@ -4,7 +4,7 @@ import app from '../../app';
 import User from '../../models/user.model';
 import { truncate, migrate, createUser, createPlaylist } from '../helper';
 
-xdescribe('👨🏼‍💻 🚏 /users', () => {
+describe('👨🏼‍💻 🚏 /users', () => {
   const USERS_PATH = '/api/v1/users';
 
   beforeEach((done) => {
@@ -79,7 +79,7 @@ xdescribe('👨🏼‍💻 🚏 /users', () => {
       });
     });
 
-    it('users assosiated playlists have assosiated genres', (done) => {
+    xit('users assosiated playlists have assosiated genres', (done) => {
       request(app).get(`${USERS_PATH}/1/playlists`)
       .end((err, res) => {
         expect(res.body.user.playlists[0]).to.have.property('genres');
