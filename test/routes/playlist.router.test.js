@@ -47,7 +47,7 @@ describe('💿 🚏 /playlists router', () => {
           .send(playlist)
           .end((err, res) => {
             expect(res.status).to.equal(201);
-            expect(res.body).to.have.property('title', 'Alchemy');
+            expect(res.body.playlist).to.have.property('title', 'Alchemy');
             done();
           });
       });
@@ -58,8 +58,8 @@ describe('💿 🚏 /playlists router', () => {
           .set('authorization', token)
           .send(playlist)
           .end((err, res) => {
-            expect(res.body).to.have.property('playlistType');
-            expect(res.body).not.to.have.property('playlist_type');
+            expect(res.body.playlist).to.have.property('playlistType');
+            expect(res.body.playlist).not.to.have.property('playlist_type');
             done();
           });
       });
@@ -115,8 +115,8 @@ describe('💿 🚏 /playlists router', () => {
         .send(playlist)
         .end((err, res) => {
           expect(res.status).to.equal(201);
-          expect(res.body).to.have.property('tracks');
-          expect(res.body.tracks).to.be.an('array');
+          expect(res.body.playlist).to.have.property('tracks');
+          expect(res.body.playlist.tracks).to.be.an('array');
           done();
         });
       });
