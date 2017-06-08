@@ -37,9 +37,9 @@ describe('👨🏼‍💻 🚏 /users', () => {
     });
   });
 
-  describe('GET /:id', () => {
-    it('Retrieves a single user by id', (done) => {
-      request(app).get(`${USERS_PATH}/1`)
+  describe('GET /:username', () => {
+    it('Retrieves a single user by username', (done) => {
+      request(app).get(`${USERS_PATH}/malimichael`)
       .end((err, res) => {
         expect(res.body.user).to.have.property('username', 'malimichael');
         expect(res.body.user).to.have.property('email', 'mali@tunebay.com');
@@ -48,7 +48,7 @@ describe('👨🏼‍💻 🚏 /users', () => {
     });
 
     it('returns an error when no user is found', (done) => {
-      request(app).get(`${USERS_PATH}/200`)
+      request(app).get(`${USERS_PATH}/idontexist`)
       .end((err, res) => {
         expect(res.body).not.to.have.property('user');
         expect(res.body).to.have.property('error', 'user not found.');
@@ -57,7 +57,18 @@ describe('👨🏼‍💻 🚏 /users', () => {
     });
   });
 
-  describe('GET /:id/playlists', () => {
+  describe('GET /id/:id', () => {
+    it('Retrives a user based on their id', (done) => {
+      request(app).get(`${USERS_PATH}/id/1`)
+      .end((err, res) => {
+        expect(res.body.user).to.have.property('username', 'malimichael');
+        expect(res.body.user).to.have.property('email', 'mali@tunebay.com');
+        done();
+      });
+    });
+  });
+
+  describe('GET /:username/playlists', () => {
     beforeEach((done) => {
       truncate()
       .then(() => migrate()
@@ -67,7 +78,7 @@ describe('👨🏼‍💻 🚏 /users', () => {
     });
 
     it('Retrieves a single user and their assosiated playlists', (done) => {
-      request(app).get(`${USERS_PATH}/1/playlists`)
+      request(app).get(`${USERS_PATH}/malimichael/playlists`)
       .end((err, res) => {
         expect(res.body.user).to.have.property('username', 'malimichael');
         expect(res.body.user).to.have.property('email', 'mali@tunebay.com');
@@ -89,7 +100,7 @@ describe('👨🏼‍💻 🚏 /users', () => {
     });
 
     it('returns an error when no user is found', (done) => {
-      request(app).get(`${USERS_PATH}/200/playlists`)
+      request(app).get(`${USERS_PATH}/idontexist/playlists`)
       .end((err, res) => {
         expect(res.body).not.to.have.property('user');
         expect(res.body).to.have.property('error', 'user not found.');
@@ -117,8 +128,17 @@ describe('👨🏼‍💻 🚏 /users', () => {
       });
     });
 
+    it('can query by id', (done) => {
+      request(app).get(`${USERS_PATH}/search?id=1`)
+      .end((err, res) => {
+        expect(res.body.user).to.have.property('username', 'malimichael');
+        expect(res.body.user).to.have.property('email', 'mali@tunebay.com');
+        done();
+      });
+    });
+
     it('returns an error when no user is found', (done) => {
-      request(app).get(`${USERS_PATH}/search?username=idontexists`)
+      request(app).get(`${USERS_PATH}/idontexists`)
       .end((err, res) => {
         expect(res.body).not.to.have.property('user');
         expect(res.body).to.have.property('error', 'user not found.');
@@ -127,7 +147,7 @@ describe('👨🏼‍💻 🚏 /users', () => {
     });
 
     it('doesnt allow for invalid query params', (done) => {
-      request(app).get(`${USERS_PATH}/search?name=malimichael`)
+      request(app).get(`${USERS_PATH}/search?name=malimichael`) // name invalid
       .end((err, res) => {
         expect(res.body).not.to.have.property('user');
         expect(res.status).to.equal(400);

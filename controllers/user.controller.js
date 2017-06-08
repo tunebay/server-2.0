@@ -10,6 +10,19 @@ export const getAll = (req, res) => {
     .catch(error => res.status(500).json({ error }));
 };
 
+export const getByUsername = (req, res) => {
+  User
+    .query()
+    .where('username', req.params.username)
+    .first()
+    .then((user) => {
+      if (!user) return res.status(404).json({ error: 'user not found.' });
+      const userInfo = setUserInfo(user);
+      return res.status(200).json({ user: userInfo });
+    })
+    .catch(error => res.status(500).json({ error }));
+};
+
 export const getById = (req, res) => {
   User
     .query()
@@ -26,7 +39,7 @@ export const getById = (req, res) => {
 export const getUserPlaylists = (req, res) => {
   User
     .query()
-    .where('id', req.params.id)
+    .where('username', req.params.username)
     .first()
     .eager('playlists.[tracks, genres]')
     .then((user) => {
