@@ -23,7 +23,7 @@ export const getById = (req, res) => {
     .catch(error => res.status(500).json({ error }));
 };
 
-export const getUserWithPlaylists = (req, res) => {
+export const getUserPlaylists = (req, res) => {
   User
     .query()
     .where('id', req.params.id)
