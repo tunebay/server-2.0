@@ -49,7 +49,7 @@ describe('💿 🚀 Playlist Model', () => {
       expect(relationMappings).to.have.property('tracks');
     });
 
-    xit('has a many to many relation to the genre table', () => {
+    it('has a many to many relation to the genre table', () => {
       expect(relationMappings).to.have.property('genres');
     });
   });

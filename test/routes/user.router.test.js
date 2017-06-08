@@ -90,8 +90,8 @@ describe('👨🏼‍💻 🚏 /users', () => {
       });
     });
 
-    xit('users assosiated playlists have assosiated genres', (done) => {
-      request(app).get(`${USERS_PATH}/1/playlists`)
+    it('users assosiated playlists have assosiated genres', (done) => {
+      request(app).get(`${USERS_PATH}/malimichael/playlists`)
       .end((err, res) => {
         expect(res.body.user.playlists[0]).to.have.property('genres');
         expect(res.body.user.playlists[0].genres).to.be.an('array');
