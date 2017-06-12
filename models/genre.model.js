@@ -21,7 +21,7 @@ class Genre extends Model {
   static get relationMappings() {
     // const Playlist = require('./playlist.model');
     return {
-      playlist: {
+      playlists: {
         relation: Model.ManyToManyRelation,
         modelClass: Playlist,
         join: {
