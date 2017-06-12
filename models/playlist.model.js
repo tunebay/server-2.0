@@ -1,5 +1,6 @@
 import { Model } from 'objection';
 import User from './user.model';
+import PlaylistGenre from './playlist_genre.model';
 import Genre from './genre.model';
 import Track from './track.model';
 
@@ -65,6 +66,7 @@ class Playlist extends Model {
         join: {
           from: 'playlists.id',
           through: {
+            modelClass: PlaylistGenre,
             from: 'playlists_genres.playlist_id',
             to: 'playlists_genres.genre_id'
           },

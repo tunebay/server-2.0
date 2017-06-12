@@ -1,5 +1,6 @@
 import { Model } from 'objection';
-// import Playlist from './playlist.model';
+import Playlist from './playlist.model';
+import PlaylistGenre from './playlist_genre.model';
 
 class Genre extends Model {
   static get tableName() {
@@ -17,23 +18,24 @@ class Genre extends Model {
     };
   }
 
-  // static get relationMappings() {
-  //   // const Playlist = require('./playlist.model');
-  //   return {
-  //     playlist: {
-  //       relation: Model.ManyToManyRelation,
-  //       modelClass: Playlist,
-  //       join: {
-  //         from: 'genre.id',
-  //         through: {
-  //           from: 'playlists_genres.genre_id',
-  //           to: 'playlists_genres.playlist_id'
-  //         },
-  //         to: 'playlist.id'
-  //       }
-  //     }
-  //   };
-  // }
+  static get relationMappings() {
+    // const Playlist = require('./playlist.model');
+    return {
+      playlist: {
+        relation: Model.ManyToManyRelation,
+        modelClass: Playlist,
+        join: {
+          from: 'genres.id',
+          through: {
+            modelClass: PlaylistGenre,
+            from: 'playlists_genres.genre_id',
+            to: 'playlists_genres.playlist_id'
+          },
+          to: 'playlists.id'
+        }
+      }
+    };
+  }
 }
 
 export default Genre;
