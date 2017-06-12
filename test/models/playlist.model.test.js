@@ -36,6 +36,12 @@ describe('💿 🚀 Playlist Model', () => {
     it('has a maximum title length of 100', () => {
       expect(jsonSchema.properties.title).to.have.property('maxLength', 100);
     });
+
+    it('it allows certain properties to be null', () => {
+      expect(jsonSchema.properties.artwork.type).to.include('null');
+      expect(jsonSchema.properties.release_date.type).to.include('null');
+      expect(jsonSchema.properties.artwork.type).to.include('null');
+    });
   });
 
   describe('.relationMappings', () => {

@@ -9,13 +9,17 @@ describe('🎵 🚀 Track model', () => {
   });
 
   describe('.jsonSchema', () => {
+    const jsonSchema = Track.jsonSchema;
+
     it('has 6 required fields', () => {
-      const jsonSchema = Track.jsonSchema;
       expect(jsonSchema.required.length).to.equal(7);
     });
 
+    it('it allows for price to be null', () => {
+      expect(jsonSchema.properties.price.type).to.include('null');
+    });
+
     it('It has a name property of max length 100', () => {
-      const jsonSchema = Track.jsonSchema;
       expect(jsonSchema.properties.name).to.have.property('maxLength', 100);
     });
   });

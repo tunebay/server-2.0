@@ -34,9 +34,9 @@ class Playlist extends Model {
         duration: { type: 'integer' },
         can_pay_more: { type: 'boolean' },
         permalink: { type: 'string' },
-        artwork: { type: 'string' },
-        purchase_message: { type: 'string', maxLength: 255 },
-        release_date: { type: 'string', format: 'date-time' },
+        artwork: { type: ['string', 'null'] },
+        purchase_message: { type: ['string', 'null'], maxLength: 255 },
+        release_date: { type: ['string', 'null'], format: 'date-time' },
         created_at: { type: 'string', format: 'date-time' }
       },
     };
