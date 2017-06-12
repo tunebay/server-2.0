@@ -34,8 +34,8 @@ describe('💿 🚏 /playlists router', () => {
     purchaseMessage: 'Thanks for the support',
     releaseDate: '2017-12-19T16:39:57-08:00',
     createdAt: '2017-12-19T16:39:57-08:00',
-    tracks: testTracks
-    // genreIds: [14, 33, 12]
+    tracks: testTracks,
+    genreIds: [14, 33, 12]
   };
 
   describe('POST /playlists', () => {
@@ -91,7 +91,7 @@ describe('💿 🚏 /playlists router', () => {
       });
     });
 
-    xdescribe('Playlist with genres', () => {
+    describe('Playlist with genres', () => {
       it('Saves a playlist and its genres', (done) => {
         request(app)
         .post(PLAYLIST_PATH)
@@ -99,8 +99,8 @@ describe('💿 🚏 /playlists router', () => {
         .send(playlist)
         .end((err, res) => {
           expect(res.status).to.equal(201);
-          expect(res.body.playlist).to.have.property('genres');
-          expect(res.body.playlist.genres).to.be.an('array');
+          expect(res.body.playlist).to.have.property('genreIds');
+          expect(res.body.playlist.genreIds).to.be.an('array');
           done();
         });
       });
