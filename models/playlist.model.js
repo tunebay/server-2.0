@@ -42,6 +42,14 @@ class Playlist extends Model {
     };
   }
 
+  static get namedFilters() {
+    return {
+      orderByCreatedAt: (builder) => {
+        builder.orderBy('created_at', 'DESC');
+      }
+    };
+  }
+
   static get relationMappings() {
     return {
       user: {

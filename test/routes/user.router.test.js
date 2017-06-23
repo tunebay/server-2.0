@@ -2,7 +2,7 @@ import request from 'supertest';
 import { expect } from 'chai';
 import app from '../../app';
 import User from '../../models/user.model';
-import { truncate, migrate, createUser, createPlaylist } from '../helper';
+import { truncate, migrate, createUser, createPlaylist, createAnotherPlaylist } from '../helper';
 
 describe('👨🏼‍💻 🚏 /users', () => {
   const USERS_PATH = '/api/v1/users';
@@ -105,6 +105,17 @@ describe('👨🏼‍💻 🚏 /users', () => {
         expect(res.body).not.to.have.property('user');
         expect(res.body).to.have.property('error', 'user not found.');
         done();
+      });
+    });
+
+    it('orders the playlists in decending order', (done) => {
+      createAnotherPlaylist()
+      .then(() => {
+        request(app).get(`${USERS_PATH}/malimichael/playlists`)
+        .end((err, res) => {
+          expect(res.body.user.playlists[0]).to.have.property('title', 'Afterlife EP');
+          done();
+        });
       });
     });
   });

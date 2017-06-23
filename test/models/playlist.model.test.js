@@ -59,4 +59,12 @@ describe('💿 🚀 Playlist Model', () => {
       expect(relationMappings).to.have.property('genres');
     });
   });
+
+  describe('.namedFilters', () => {
+    const namedFilters = Playlist.namedFilters;
+
+    it('has a function that orders by created at', () => {
+      expect(namedFilters).to.have.property('orderByCreatedAt');
+    });
+  });
 });

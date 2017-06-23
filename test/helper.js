@@ -38,12 +38,23 @@ export const createPlaylist = () => {
     release_date: '2016-01-19T16:39:57-08:00',
     created_at: '2017-02-19T16:39:57-08:00'
   });
-  // .then(() => {
-  //   return knex('playlists_genres').insert([
-  //     { genre_id: 14, playlist_id: 1 },
-  //     { genre_id: 34, playlist_id: 1 }
-  //   ]);
-  // });
+};
+
+export const createAnotherPlaylist = () => {
+  return knex('playlists').insert({
+    user_id: 1,
+    title: 'Afterlife EP',
+    playlist_type: 'EP',
+    price: 3.99,
+    number_of_tracks: 4,
+    duration: 980,
+    can_pay_more: true,
+    permalink: 'https://tunebay.com/malimichael/afterlife',
+    artwork: 'https://tunebay-upload.s3-eu-west-2.amazonaws.com/users/artwork/85cd2abe-3a96-4d9c-91a2-b4cb066709c4',
+    purchase_message: 'Thanks for the support',
+    release_date: '2016-01-19T16:39:57-08:00',
+    created_at: '2017-02-27T16:39:57-08:00'
+  });
 };
 
 export const truncate = () => {
