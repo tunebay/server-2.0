@@ -41,7 +41,7 @@ export const getUserPlaylists = (req, res) => {
     .query()
     .where('username', req.params.username)
     .first()
-    .eager('playlists(orderByCreatedAt).[tracks, genres]')
+    .eager('playlists(orderByCreatedAt).[tracks, genres, user]')
     .then((user) => {
       if (!user) return res.status(404).json({ error: 'user not found.' });
       const userInfo = camelCase(user, { deep: true });
