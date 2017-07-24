@@ -2,7 +2,7 @@ import request from 'supertest';
 import { expect } from 'chai';
 import { omit } from 'lodash';
 import app from '../../app';
-import { truncate, migrate, createUser, testTracks } from '../helper';
+import { truncate, migrate, createUser, testTracks, createPlaylist } from '../helper';
 import { generateToken } from '../../lib/auth';
 
 const PLAYLIST_PATH = '/api/v1/playlists';
@@ -37,6 +37,27 @@ describe('💿 🚏 /playlists router', () => {
     tracks: testTracks,
     genreIds: [14, 33, 12]
   };
+
+  describe('GET /playlists', () => {
+    beforeEach((done) => {
+      truncate()
+      .then(() => migrate()
+      .then(() => createUser())
+      .then(() => createPlaylist()))
+      .then(() => done());
+    });
+
+    it('It gets a single playlist by its id', (done) => {
+      request(app)
+        .get(`${PLAYLIST_PATH}/1`)
+        .end((err, res) => {
+          expect(res.status).to.equal(200);
+          expect(res.body.playlist).to.have.property('title', 'Alchemy');
+          expect(res.body.playlist.user).to.be.an('object');
+          done();
+        });
+    });
+  });
 
   describe('POST /playlists', () => {
     describe('Stand alone playlist', () => {

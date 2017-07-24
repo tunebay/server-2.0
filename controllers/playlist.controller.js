@@ -34,3 +34,17 @@ export const create = (req, res) => {
       .catch(error => res.status(500).json({ error }));
   });
 };
+
+export const getById = (req, res) => {
+  Playlist
+    .query()
+    .where('id', req.params.id)
+    .eager('user')
+    .first()
+    .then((playlist) => {
+      if (!playlist) return res.status(404).json({ error: 'user not found.' });
+      const playlistInfo = camelCaseKeys(playlist, { deep: true });
+      return res.status(200).json({ playlist: playlistInfo });
+    })
+    .catch(error => res.status(500).json({ error }));
+};
