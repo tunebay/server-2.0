@@ -16,8 +16,7 @@ export const create = (req, res) => {
   req.getValidationResult().then((result) => {
     if (!result.isEmpty()) return res.status(400).json({ errors: result.mapped() });
 
-    return Playlist
-      .query()
+    return Playlist.query()
       .insertGraph(newPlaylist)
       .then((playlistInfo) => {
         const genresToInsert = genreIds.map((genreId) => {
@@ -36,8 +35,7 @@ export const create = (req, res) => {
 };
 
 export const getById = (req, res) => {
-  Playlist
-    .query()
+  Playlist.query()
     .where('id', req.params.id)
     .eager('user')
     .first()

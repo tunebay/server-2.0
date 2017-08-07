@@ -9,8 +9,16 @@ export const register = (req, res) => {
   req.sanitize('email').trim();
   req.sanitize('password').trim();
 
-  req.checkBody('username', 'Invalid username').notEmpty().isLength({ min: 3, max: 24 }).isUsername();
-  req.checkBody('email', 'Invalid email address').notEmpty().isLength({ min: 3, max: 255 }).isEmail();
+  req
+    .checkBody('username', 'Invalid username')
+    .notEmpty()
+    .isLength({ min: 3, max: 24 })
+    .isUsername();
+  req
+    .checkBody('email', 'Invalid email address')
+    .notEmpty()
+    .isLength({ min: 3, max: 255 })
+    .isEmail();
   req.checkBody('password', 'Invalid password').notEmpty().isLength({ min: 8 });
   req.checkBody('displayName', 'Invalid display name').notEmpty().isLength({ max: 50 });
 
@@ -28,14 +36,13 @@ export const register = (req, res) => {
     active,
     password_hash: passwordHash,
     display_name: displayName,
-    created_at: createdAt
+    created_at: createdAt,
   };
 
   req.getValidationResult().then((result) => {
     if (!result.isEmpty()) return res.status(400).json({ errors: result.mapped() });
 
-    return User
-      .query()
+    return User.query()
       .insert(newUser)
       .then((user) => {
         const userInfo = setUserInfo(user);
@@ -59,8 +66,7 @@ export const login = (req, res) => {
     if (!result.isEmpty()) return res.status(400).json({ errors: result.mapped() });
     const loginTime = moment().format();
 
-    return User
-      .query()
+    return User.query()
       .patch({ last_login: loginTime })
       .where('id', req.user.id)
       .first()
@@ -85,33 +91,29 @@ export const uniqueUsernameCheck = (req, res) => {
       return res.status(200).json({ message: 'Username is reserved.' });
     }
 
-    return User
-      .query()
-      .where('username', req.body.username)
-      .first()
-      .then((user) => {
-        return !user ?
-          res.status(200).json({ message: 'success' }) :
-          res.status(200).json({ message: 'Username is not available.' });
-      });
+    return User.query().where('username', req.body.username).first().then((user) => {
+      return !user
+        ? res.status(200).json({ message: 'success' })
+        : res.status(200).json({ message: 'Username is not available.' });
+    });
   });
 };
 
 export const uniqueEmailCheck = (req, res) => {
   req.sanitize('email').trim();
-  req.checkBody('email', 'Invalid email address').notEmpty().isLength({ min: 3, max: 255 }).isEmail();
+  req
+    .checkBody('email', 'Invalid email address')
+    .notEmpty()
+    .isLength({ min: 3, max: 255 })
+    .isEmail();
 
   req.getValidationResult().then((result) => {
     if (!result.isEmpty()) return res.status(400).json({ errors: result.mapped() });
 
-    return User
-      .query()
-      .where('email', req.body.email)
-      .first()
-      .then((user) => {
-        return !user ?
-        res.status(200).json({ message: 'success' }) :
-        res.status(200).json({ message: 'Email already in use.' });
-      });
+    return User.query().where('email', req.body.email).first().then((user) => {
+      return !user
+        ? res.status(200).json({ message: 'success' })
+        : res.status(200).json({ message: 'Email already in use.' });
+    });
   });
 };

@@ -8,10 +8,7 @@ describe('🔑 🚏 /auth', () => {
   const AUTH_PATH = '/api/v1/auth';
 
   beforeEach((done) => {
-    truncate()
-    .then(() => migrate()
-    .then(() => createUser()
-    .then(() => done())));
+    truncate().then(() => migrate().then(() => createUser().then(() => done())));
   });
 
   afterEach((done) => {
@@ -26,7 +23,7 @@ describe('🔑 🚏 /auth', () => {
           displayName: 'New User',
           email: 'newuser@user.com',
           username: 'newuser',
-          password: 's3cr3t123'
+          password: 's3cr3t123',
         })
         .end((err, res) => {
           expect(res.body).to.have.property('user');
@@ -45,7 +42,7 @@ describe('🔑 🚏 /auth', () => {
           displayName: 'Imposter',
           email: 'mali@user.com', // unique email
           username: 'malimichael', // taken username
-          password: 's3cr3t123'
+          password: 's3cr3t123',
         })
         .end((err, res) => {
           expect(res.body).not.to.have.property('token');
@@ -61,7 +58,7 @@ describe('🔑 🚏 /auth', () => {
           displayName: 'Imposter',
           email: 'mali@tunebay.com', // taken email
           username: 'imsounique', // unique username
-          password: 's3cr3t123'
+          password: 's3cr3t123',
         })
         .end((err, res) => {
           expect(res.body).not.to.have.property('token');
@@ -77,7 +74,7 @@ describe('🔑 🚏 /auth', () => {
         .post(`${AUTH_PATH}/login`)
         .send({
           emailOrUsername: 'malimichael',
-          password: 'password123'
+          password: 'password123',
         })
         .end((err, res) => {
           expect(res.body).to.have.property('token');
@@ -94,7 +91,7 @@ describe('🔑 🚏 /auth', () => {
         .post(`${AUTH_PATH}/login`)
         .send({
           emailOrUsername: 'mali@tunebay.com',
-          password: 'password123'
+          password: 'password123',
         })
         .end((err, res) => {
           expect(res.body).to.have.property('token');
@@ -111,7 +108,7 @@ describe('🔑 🚏 /auth', () => {
         .post(`${AUTH_PATH}/login`)
         .send({
           emailOrUsername: 'mali@tunebay.com',
-          password: 'badpassword'
+          password: 'badpassword',
         })
         .end((err, res) => {
           expect(res.status).to.equal(401);
@@ -125,19 +122,15 @@ describe('🔑 🚏 /auth', () => {
         .post(`${AUTH_PATH}/login`)
         .send({
           emailOrUsername: 'mali@tunebay.com',
-          password: 'password123'
+          password: 'password123',
         })
         .end((err, res) => {
-          User
-            .query()
-            .where('id', res.body.user.id)
-            .first()
-            .then((user) => {
-              expect(user).to.be.instanceof(User);
-              expect(user.last_login).to.be.equalDate(today);
-              expect(user.last_login).to.be.afterDate(user.created_at);
-              done();
-            });
+          User.query().where('id', res.body.user.id).first().then((user) => {
+            expect(user).to.be.instanceof(User);
+            expect(user.last_login).to.be.equalDate(today);
+            expect(user.last_login).to.be.afterDate(user.created_at);
+            done();
+          });
         });
     });
   });

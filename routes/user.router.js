@@ -4,7 +4,7 @@ import {
   getByUsername,
   getUserPlaylists,
   getByQuery,
-  getById
+  getById,
 } from '../controllers/user.controller';
 
 const router = express.Router();

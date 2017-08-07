@@ -11,22 +11,23 @@ describe('😎 Helper funcs', () => {
     duration: 2580,
     canPayMore: true,
     permalink: 'https://tunebay.com/malimichael/alchemy',
-    artwork: 'https://tunebay-upload.s3-eu-west-2.amazonaws.com/users/artwork/85cd2abe-3a96-4d9c-91a2-b4cb066709c4',
+    artwork:
+      'https://tunebay-upload.s3-eu-west-2.amazonaws.com/users/artwork/85cd2abe-3a96-4d9c-91a2-b4cb066709c4',
     purchaseMesssage: 'Thanks for the support',
     releaseDate: '2017-12-19T16:39:57-08:00',
-    createdAt: '2017-12-19T16:39:57-08:00'
+    createdAt: '2017-12-19T16:39:57-08:00',
   };
 
   const playlist2 = {
     userId: 1,
     title: 'Wings',
     playlistType: 'EP',
-    price: 0.00,
+    price: 0.0,
     numberOfTracks: 4,
     duration: 980,
     canPayMore: false,
     permalink: 'https://tunebay.com/malimichael/wings',
-    createdAt: '2017-12-19T16:39:57-08:00'
+    createdAt: '2017-12-19T16:39:57-08:00',
   };
 
   describe('formatForSQLInsert()', () => {

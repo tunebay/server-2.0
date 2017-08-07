@@ -9,14 +9,7 @@ class User extends Model {
   static get jsonSchema() {
     return {
       type: 'object',
-      required: [
-        'display_name',
-        'username',
-        'email',
-        'active',
-        'created_at',
-        'password_hash'
-      ],
+      required: ['display_name', 'username', 'email', 'active', 'created_at', 'password_hash'],
 
       properties: {
         id: { type: 'integer' },
@@ -27,7 +20,7 @@ class User extends Model {
         account_type: { type: ['string', 'null'] },
         last_login: { type: ['string', 'null'], format: 'date-time' },
         created_at: { type: 'string', format: 'date-time' },
-        password_hash: { type: 'string', minLength: 8, maxLength: 100 }
+        password_hash: { type: 'string', minLength: 8, maxLength: 100 },
       },
     };
   }
@@ -39,9 +32,9 @@ class User extends Model {
         modelClass: Playlist,
         join: {
           from: 'users.id',
-          to: 'playlists.user_id'
-        }
-      }
+          to: 'playlists.user_id',
+        },
+      },
     };
   }
 }

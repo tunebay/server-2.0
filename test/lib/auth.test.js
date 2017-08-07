@@ -6,7 +6,7 @@ describe('🔑 Auth', () => {
     id: 1,
     display_name: 'John Doe',
     email: 'john@example.com',
-    username: 'johndoe'
+    username: 'johndoe',
   };
 
   describe('setUserInfo()', () => {

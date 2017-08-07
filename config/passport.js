@@ -7,14 +7,14 @@ import User from '../models/user.model';
 require('dotenv').config();
 
 const localOptions = {
-  usernameField: 'emailOrUsername'
+  usernameField: 'emailOrUsername',
 };
 
 const localLogin = new LocalStrategy(localOptions, (emailOrUsername, password, done) => {
   const credentialType = emailOrUsername.match(/@/) ? 'email' : 'username';
-  return User
-    .query()
-    .where(credentialType, emailOrUsername).first()
+  return User.query()
+    .where(credentialType, emailOrUsername)
+    .first()
     .then((user) => {
       if (!user) return done(null, false);
       if (!comparePassword(password, user.password_hash)) {
@@ -27,13 +27,13 @@ const localLogin = new LocalStrategy(localOptions, (emailOrUsername, password, d
 
 const jwtOptions = {
   jwtFromRequest: ExtractJwt.fromHeader('authorization'),
-  secretOrKey: process.env.JWT_SECRET
+  secretOrKey: process.env.JWT_SECRET,
 };
 
 const jwtLogin = new JwtStrategy(jwtOptions, (payload, done) => {
-  return User
-    .query()
-    .where('id', payload.sub).first()
+  return User.query()
+    .where('id', payload.sub)
+    .first()
     .then((user) => {
       if (!user) return done(null, false);
       return done(null, user);

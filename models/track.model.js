@@ -16,7 +16,7 @@ class Track extends Model {
         'playlist_position',
         'single',
         'file_type',
-        'location'
+        'location',
       ],
 
       properties: {
@@ -24,11 +24,11 @@ class Track extends Model {
         playlist_id: { type: 'integer' },
         name: { type: 'string', minLength: 1, maxLength: 100 },
         duration: { type: 'integer' },
-        price: { type: ['number', 'null'], minimum: 0.00, maximum: 999.99 },
+        price: { type: ['number', 'null'], minimum: 0.0, maximum: 999.99 },
         playlist_position: { type: 'integer' },
         location: { type: 'string' },
         single: { type: 'boolean' },
-        file_type: { type: 'string' }
+        file_type: { type: 'string' },
       },
     };
   }
@@ -40,9 +40,9 @@ class Track extends Model {
         modelClass: Playlist,
         join: {
           from: 'tracks.playlist_id',
-          to: 'playlists.id'
-        }
-      }
+          to: 'playlists.id',
+        },
+      },
     };
   }
 }

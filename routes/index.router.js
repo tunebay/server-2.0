@@ -8,10 +8,9 @@ import playlistRoutes from './playlist.router';
 const router = express.Router();
 
 router.get('/', (req, res) => {
-  res.status(200)
-    .json({
-      message: 'Tunebay API V1.0 connection ok'
-    });
+  res.status(200).json({
+    message: 'Tunebay API V1.0 connection ok',
+  });
 });
 
 router.use('/auth', authRoutes);

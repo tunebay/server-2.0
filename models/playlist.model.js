@@ -29,7 +29,7 @@ class Playlist extends Model {
         user_id: { type: 'integer' },
         title: { type: 'string', minLength: 1, maxLength: 100 },
         playlist_type: { type: 'string', maxLength: 24 },
-        price: { type: 'number', minimum: 0.00, maximum: 999.99 },
+        price: { type: 'number', minimum: 0.0, maximum: 999.99 },
         number_of_tracks: { type: 'integer' },
         duration: { type: 'integer' },
         can_pay_more: { type: 'boolean' },
@@ -37,7 +37,7 @@ class Playlist extends Model {
         artwork: { type: ['string', 'null'] },
         purchase_message: { type: ['string', 'null'], maxLength: 255 },
         release_date: { type: ['string', 'null'], format: 'date-time' },
-        created_at: { type: 'string', format: 'date-time' }
+        created_at: { type: 'string', format: 'date-time' },
       },
     };
   }
@@ -46,7 +46,7 @@ class Playlist extends Model {
     return {
       orderByCreatedAt: (builder) => {
         builder.orderBy('created_at', 'DESC');
-      }
+      },
     };
   }
 
@@ -57,16 +57,16 @@ class Playlist extends Model {
         modelClass: User,
         join: {
           from: 'playlists.user_id',
-          to: 'users.id'
-        }
+          to: 'users.id',
+        },
       },
       tracks: {
         relation: Model.HasManyRelation,
         modelClass: Track,
         join: {
           from: 'playlists.id',
-          to: 'tracks.playlist_id'
-        }
+          to: 'tracks.playlist_id',
+        },
       },
       genres: {
         relation: Model.ManyToManyRelation,
@@ -76,11 +76,11 @@ class Playlist extends Model {
           through: {
             modelClass: PlaylistGenre,
             from: 'playlists_genres.playlist_id',
-            to: 'playlists_genres.genre_id'
+            to: 'playlists_genres.genre_id',
           },
-          to: 'genres.id'
-        }
-      }
+          to: 'genres.id',
+        },
+      },
     };
   }
 }

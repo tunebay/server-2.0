@@ -7,8 +7,7 @@ describe('🖕 🚏 Index router "/"', () => {
 
   describe('GET /', () => {
     it('connects to the API succesfully', (done) => {
-      request(app).get(INDEX_PATH)
-      .end((err, res) => {
+      request(app).get(INDEX_PATH).end((err, res) => {
         expect(res.body.message).to.equal('Tunebay API V1.0 connection ok');
         done();
       });

@@ -9,10 +9,7 @@ const PLAYLIST_PATH = '/api/v1/playlists';
 
 describe('💿 🚏 /playlists router', () => {
   beforeEach((done) => {
-    truncate()
-    .then(() => migrate()
-    .then(() => createUser())
-    .then(() => done()));
+    truncate().then(() => migrate().then(() => createUser()).then(() => done()));
   });
 
   afterEach((done) => {
@@ -30,32 +27,29 @@ describe('💿 🚏 /playlists router', () => {
     duration: 2580,
     canPayMore: true,
     permalink: 'https://tunebay.com/malimichael/alchemy',
-    artwork: 'https://tunebay-upload.s3-eu-west-2.amazonaws.com/users/artwork/85cd2abe-3a96-4d9c-91a2-b4cb066709c4',
+    artwork:
+      'https://tunebay-upload.s3-eu-west-2.amazonaws.com/users/artwork/85cd2abe-3a96-4d9c-91a2-b4cb066709c4',
     purchaseMessage: 'Thanks for the support',
     releaseDate: '2017-12-19T16:39:57-08:00',
     createdAt: '2017-12-19T16:39:57-08:00',
     tracks: testTracks,
-    genreIds: [14, 33, 12]
+    genreIds: [14, 33, 12],
   };
 
   describe('GET /playlists', () => {
     beforeEach((done) => {
       truncate()
-      .then(() => migrate()
-      .then(() => createUser())
-      .then(() => createPlaylist()))
-      .then(() => done());
+        .then(() => migrate().then(() => createUser()).then(() => createPlaylist()))
+        .then(() => done());
     });
 
     it('It gets a single playlist by its id', (done) => {
-      request(app)
-        .get(`${PLAYLIST_PATH}/1`)
-        .end((err, res) => {
-          expect(res.status).to.equal(200);
-          expect(res.body.playlist).to.have.property('title', 'Alchemy');
-          expect(res.body.playlist.user).to.be.an('object');
-          done();
-        });
+      request(app).get(`${PLAYLIST_PATH}/1`).end((err, res) => {
+        expect(res.status).to.equal(200);
+        expect(res.body.playlist).to.have.property('title', 'Alchemy');
+        expect(res.body.playlist.user).to.be.an('object');
+        done();
+      });
     });
   });
 
@@ -115,15 +109,15 @@ describe('💿 🚏 /playlists router', () => {
     describe('Playlist with genres', () => {
       it('Saves a playlist and its genres', (done) => {
         request(app)
-        .post(PLAYLIST_PATH)
-        .set('authorization', token)
-        .send(playlist)
-        .end((err, res) => {
-          expect(res.status).to.equal(201);
-          expect(res.body.playlist).to.have.property('genreIds');
-          expect(res.body.playlist.genreIds).to.be.an('array');
-          done();
-        });
+          .post(PLAYLIST_PATH)
+          .set('authorization', token)
+          .send(playlist)
+          .end((err, res) => {
+            expect(res.status).to.equal(201);
+            expect(res.body.playlist).to.have.property('genreIds');
+            expect(res.body.playlist.genreIds).to.be.an('array');
+            done();
+          });
       });
     });
 
@@ -131,15 +125,15 @@ describe('💿 🚏 /playlists router', () => {
       // const playlistWithTracks = { ...playlist, tracks: testTracks };
       it('It saves a playlists tracks to the database', (done) => {
         request(app)
-        .post(PLAYLIST_PATH)
-        .set('authorization', token)
-        .send(playlist)
-        .end((err, res) => {
-          expect(res.status).to.equal(201);
-          expect(res.body.playlist).to.have.property('tracks');
-          expect(res.body.playlist.tracks).to.be.an('array');
-          done();
-        });
+          .post(PLAYLIST_PATH)
+          .set('authorization', token)
+          .send(playlist)
+          .end((err, res) => {
+            expect(res.status).to.equal(201);
+            expect(res.body.playlist).to.have.property('tracks');
+            expect(res.body.playlist.tracks).to.be.an('array');
+            done();
+          });
       });
     });
   });

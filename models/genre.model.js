@@ -29,11 +29,11 @@ class Genre extends Model {
           through: {
             modelClass: PlaylistGenre,
             from: 'playlists_genres.genre_id',
-            to: 'playlists_genres.playlist_id'
+            to: 'playlists_genres.playlist_id',
           },
-          to: 'playlists.id'
-        }
-      }
+          to: 'playlists.id',
+        },
+      },
     };
   }
 }

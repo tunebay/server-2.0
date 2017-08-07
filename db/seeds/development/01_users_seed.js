@@ -14,13 +14,14 @@ const generateUser = () => {
     account_type: random(1) === 1 ? 'artist' : 'fan',
     created_at: faker.date.past(),
     last_login: faker.date.past(),
-    password_hash: bcrypt.hashSync('s3cretP4ssw0d')
+    password_hash: bcrypt.hashSync('s3cretP4ssw0d'),
     // password_hash: 'secret'
   };
 };
 
 exports.seed = (knex) => {
-  return knex('users').del()
+  return knex('users')
+    .del()
     .then(() => knex.raw('ALTER SEQUENCE users_id_seq RESTART WITH 1'))
     .then(() => {
       // 1
@@ -32,7 +33,7 @@ exports.seed = (knex) => {
         account_type: 'artist',
         created_at: faker.date.past(),
         last_login: faker.date.past(),
-        password_hash: bcrypt.hashSync('password123')
+        password_hash: bcrypt.hashSync('password123'),
       });
     })
     .then(() => {
@@ -45,7 +46,7 @@ exports.seed = (knex) => {
         account_type: 'artist',
         created_at: faker.date.past(),
         last_login: faker.date.past(),
-        password_hash: bcrypt.hashSync('jahroots123')
+        password_hash: bcrypt.hashSync('jahroots123'),
       });
     })
     .then(() => {
@@ -58,7 +59,7 @@ exports.seed = (knex) => {
         account_type: 'artist',
         created_at: faker.date.past(),
         last_login: faker.date.past(),
-        password_hash: bcrypt.hashSync('password123')
+        password_hash: bcrypt.hashSync('password123'),
       });
     })
     .then(() => {
@@ -71,7 +72,7 @@ exports.seed = (knex) => {
         account_type: 'artist',
         created_at: faker.date.past(),
         last_login: faker.date.past(),
-        password_hash: bcrypt.hashSync('password123')
+        password_hash: bcrypt.hashSync('password123'),
       });
     })
     .then(() => {
@@ -84,7 +85,7 @@ exports.seed = (knex) => {
         account_type: 'fan',
         created_at: faker.date.past(),
         last_login: faker.date.past(),
-        password_hash: bcrypt.hashSync('password123')
+        password_hash: bcrypt.hashSync('password123'),
       });
     })
     .then(() => {
@@ -97,7 +98,7 @@ exports.seed = (knex) => {
         account_type: 'fan',
         created_at: faker.date.past(),
         last_login: faker.date.past(),
-        password_hash: bcrypt.hashSync('password123')
+        password_hash: bcrypt.hashSync('password123'),
       });
     })
     .then(() => {
@@ -110,7 +111,7 @@ exports.seed = (knex) => {
         account_type: 'artist',
         created_at: faker.date.past(),
         last_login: faker.date.past(),
-        password_hash: bcrypt.hashSync('password123')
+        password_hash: bcrypt.hashSync('password123'),
       });
     })
     .then(() => {
@@ -123,7 +124,7 @@ exports.seed = (knex) => {
         account_type: 'artist',
         created_at: faker.date.past(),
         last_login: faker.date.past(),
-        password_hash: bcrypt.hashSync('password123')
+        password_hash: bcrypt.hashSync('password123'),
       });
     })
     .then(() => {
@@ -136,7 +137,7 @@ exports.seed = (knex) => {
         account_type: 'artist',
         created_at: faker.date.past(),
         last_login: faker.date.past(),
-        password_hash: bcrypt.hashSync('password123')
+        password_hash: bcrypt.hashSync('password123'),
       });
     })
     .then(() => {
@@ -149,7 +150,7 @@ exports.seed = (knex) => {
         account_type: 'artist',
         created_at: faker.date.past(),
         last_login: faker.date.past(),
-        password_hash: bcrypt.hashSync('password123')
+        password_hash: bcrypt.hashSync('password123'),
       });
     })
     .then(() => {
@@ -162,7 +163,7 @@ exports.seed = (knex) => {
         account_type: 'artist',
         created_at: faker.date.past(),
         last_login: faker.date.past(),
-        password_hash: bcrypt.hashSync('password123')
+        password_hash: bcrypt.hashSync('password123'),
       });
     })
     .then(() => {
@@ -175,7 +176,7 @@ exports.seed = (knex) => {
         account_type: 'artist',
         created_at: faker.date.past(),
         last_login: faker.date.past(),
-        password_hash: bcrypt.hashSync('password123')
+        password_hash: bcrypt.hashSync('password123'),
       });
     })
     .then(() => {

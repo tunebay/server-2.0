@@ -4,7 +4,7 @@ import {
   register,
   login,
   uniqueUsernameCheck,
-  uniqueEmailCheck
+  uniqueEmailCheck,
 } from '../controllers/auth.controller';
 
 const router = express.Router();
