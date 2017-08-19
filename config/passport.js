@@ -1,10 +1,27 @@
 import passport from 'passport';
 import LocalStrategy from 'passport-local';
+import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
 import { Strategy as JwtStrategy, ExtractJwt } from 'passport-jwt';
 import { comparePassword } from '../lib/auth';
+import keys from './keys';
 import User from '../models/user.model';
 
 require('dotenv').config();
+
+const googleLogin = new GoogleStrategy(
+  {
+    clientID: keys.GOOGLE_CLIENT_ID,
+    clientSecret: keys.GOOGLE_CLIENT_SECRET,
+    callbackURL: '/api/v1/auth/google/callback',
+  },
+  async (accessToken, refreshToken, profile, done) => {
+    console.log(accessToken);
+    const googleProfile = profile._json; // eslint-disable-line no-underscore-dangle
+    console.log(googleProfile);
+  },
+);
+
+// local
 
 const localOptions = {
   usernameField: 'emailOrUsername',
@@ -43,6 +60,7 @@ const jwtLogin = new JwtStrategy(jwtOptions, (payload, done) => {
 
 passport.use(jwtLogin);
 passport.use(localLogin);
+passport.use(googleLogin);
 
 export const requireAuth = passport.authenticate('jwt', { session: false });
 export const requireLogin = passport.authenticate('local', { session: false });

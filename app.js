@@ -22,7 +22,7 @@ if (process.env.NODE_ENV !== 'test') {
 
 const corsConfig = {
   origin: 'http://localhost:8080',
-  optionsSuccessStatus: 200
+  optionsSuccessStatus: 200,
 };
 
 app.use(cors(corsConfig));
@@ -45,7 +45,7 @@ if (app.get('env') === 'development') {
     res.status(err.status || 500);
     res.json({
       message: err.message,
-      error: err
+      error: err,
     });
   });
 }
@@ -56,7 +56,7 @@ app.use((err, req, res) => {
   res.status(err.status || 500);
   res.json({
     message: err.message,
-    error: {}
+    error: {},
   });
 });
 
