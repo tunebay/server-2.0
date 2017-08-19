@@ -15,6 +15,8 @@ router.post('/login', requireLogin, login);
 router.post('/usernamecheck', uniqueUsernameCheck);
 router.post('/emailcheck', uniqueEmailCheck);
 
+// Google
+
 router.get(
   '/google',
   passport.authenticate('google', {
@@ -23,5 +25,16 @@ router.get(
 );
 
 router.get('/google/callback', passport.authenticate('google'));
+
+// Facebook
+
+router.get(
+  '/facebook',
+  passport.authenticate('facebook', {
+    scope: ['public_profile', 'email', 'user_actions.music'],
+  }),
+);
+
+router.get('/facebook/callback', passport.authenticate('facebook'));
 
 export default router;
