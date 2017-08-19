@@ -9,6 +9,13 @@ exports.up = (knex) => {
     t.timestamp('last_login').nullable();
     t.timestamp('created_at').notNullable().defaultTo(knex.fn.now());
     t.string('password_hash').notNullable();
+    t.string('provider').notNullable();
+    t.string('profile_image').nullable();
+    t.boolean('verified').notNullable().defaultTo(false);
+    t.string('gender').nullable();
+    t.string('cover_photo').nullable();
+    t.string('first_name').nullable();
+    t.string('last_name').nullable();
   });
 };
 
@@ -19,21 +26,21 @@ exports.down = (knex) => {
 /* Columns to add
 
 --------------------------------------------
-provider
+provider √
 --------------------------------------------
-image
+image √
 --------------------------------------------
-verified
+verified √
 --------------------------------------------
-age
+age ??? how to add min max?
 --------------------------------------------
-gender
+gender √
 --------------------------------------------
-cover
+cover √
 --------------------------------------------
-first_name
+first_name √
 --------------------------------------------
-last_name
+last_name √
 
 
 */

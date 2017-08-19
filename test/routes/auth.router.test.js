@@ -24,8 +24,10 @@ describe('🔑 🚏 /auth', () => {
           email: 'newuser@user.com',
           username: 'newuser',
           password: 's3cr3t123',
+          // provider: 'email',
         })
         .end((err, res) => {
+          console.log('res', res);
           expect(res.body).to.have.property('user');
           expect(res.body).to.have.property('token');
           expect(res.body.user.username).to.equal('newuser');

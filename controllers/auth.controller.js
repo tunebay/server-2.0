@@ -37,6 +37,7 @@ export const register = (req, res) => {
     password_hash: passwordHash,
     display_name: displayName,
     created_at: createdAt,
+    // provider
   };
 
   req.getValidationResult().then((result) => {

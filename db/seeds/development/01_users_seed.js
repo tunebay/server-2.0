@@ -34,6 +34,7 @@ exports.seed = (knex) => {
         created_at: faker.date.past(),
         last_login: faker.date.past(),
         password_hash: bcrypt.hashSync('password123'),
+        provider: 'google',
       });
     })
     .then(() => {
@@ -47,6 +48,7 @@ exports.seed = (knex) => {
         created_at: faker.date.past(),
         last_login: faker.date.past(),
         password_hash: bcrypt.hashSync('jahroots123'),
+        provider: 'email',
       });
     })
     .then(() => {
