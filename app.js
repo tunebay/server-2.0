@@ -4,7 +4,7 @@ import { Model } from 'objection';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import validator from 'express-validator';
-import customValidators from './lib/validator_middlewares';
+import customValidators from './services/validator_middlewares';
 import routes from './routes/index.router';
 import knex from './db/knex';
 

@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { formatForSQLInsert } from '../../lib/helpers';
+import { formatForSQLInsert } from '../../services/helpers';
 
 describe('😎 Helper funcs', () => {
   const playlist = {

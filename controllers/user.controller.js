@@ -1,6 +1,6 @@
 import camelCase from 'camelcase-keys';
 import User from '../models/user.model';
-import { setUserInfo } from '../lib/auth';
+import { setUserInfo } from '../services/auth';
 
 export const getAll = (req, res) => {
   User.query()
@@ -53,7 +53,9 @@ export const getByQuery = (req, res) => {
   const validQueryParameters = ['username', 'email', 'id'];
   const isValidQuery = Object.keys(req.query).every(e => validQueryParameters.includes(e));
 
-  if (!isValidQuery) { return res.status(400).json({ error: 'One or more query parameters are invalid.' }); }
+  if (!isValidQuery) {
+    return res.status(400).json({ error: 'One or more query parameters are invalid.' });
+  }
 
   return User.query().where(req.query).first().then((user) => {
     if (!user) return res.status(404).json({ error: 'user not found.' });

@@ -2,7 +2,7 @@ import passport from 'passport';
 import LocalStrategy from 'passport-local';
 import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
 import { Strategy as JwtStrategy, ExtractJwt } from 'passport-jwt';
-import { comparePassword } from '../lib/auth';
+import { comparePassword } from '../services/auth';
 import keys from './keys';
 import User from '../models/user.model';
 

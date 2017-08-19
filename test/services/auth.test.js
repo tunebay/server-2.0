@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { generateToken, setUserInfo } from '../../lib/auth';
+import { generateToken, setUserInfo } from '../../services/auth';
 
 describe('🔑 Auth', () => {
   const newUser = {

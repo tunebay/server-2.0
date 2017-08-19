@@ -1,8 +1,8 @@
 import bcrypt from 'bcryptjs';
 import moment from 'moment';
 import User from '../models/user.model';
-import reservedUsernames from '../lib/reserved_usernames';
-import { setUserInfo, generateToken } from '../lib/auth';
+import reservedUsernames from '../services/reserved_usernames';
+import { setUserInfo, generateToken } from '../services/auth';
 
 export const register = (req, res) => {
   req.sanitize('username').trim();

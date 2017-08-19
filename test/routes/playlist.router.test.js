@@ -3,7 +3,7 @@ import { expect } from 'chai';
 import { omit } from 'lodash';
 import app from '../../app';
 import { truncate, migrate, createUser, testTracks, createPlaylist } from '../helper';
-import { generateToken } from '../../lib/auth';
+import { generateToken } from '../../services/auth';
 
 const PLAYLIST_PATH = '/api/v1/playlists';
 
