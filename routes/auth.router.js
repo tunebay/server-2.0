@@ -1,6 +1,6 @@
 import express from 'express';
 import passport from 'passport';
-import { requireLogin } from '../config/passport';
+import { requireLogin } from '../services/passport';
 import {
   register,
   login,

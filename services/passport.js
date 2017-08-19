@@ -3,7 +3,7 @@ import LocalStrategy from 'passport-local';
 import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
 import { Strategy as JwtStrategy, ExtractJwt } from 'passport-jwt';
 import { comparePassword } from '../services/auth';
-import keys from './keys';
+import keys from '../config/keys';
 import User from '../models/user.model';
 
 require('dotenv').config();
@@ -44,7 +44,7 @@ const localLogin = new LocalStrategy(localOptions, (emailOrUsername, password, d
 
 const jwtOptions = {
   jwtFromRequest: ExtractJwt.fromHeader('authorization'),
-  secretOrKey: process.env.JWT_SECRET,
+  secretOrKey: keys.JWT_SECRET,
 };
 
 const jwtLogin = new JwtStrategy(jwtOptions, (payload, done) => {

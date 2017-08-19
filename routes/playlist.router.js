@@ -1,5 +1,5 @@
 import express from 'express';
-import { requireAuth } from '../config/passport';
+import { requireAuth } from '../services/passport';
 import { create, getById } from '../controllers/playlist.controller';
 
 const router = express.Router();

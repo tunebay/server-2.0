@@ -1,4 +1,4 @@
-import aws from '../config/aws';
+import aws from '../services/aws';
 
 export const sign = (req, res) => {
   const s3 = new aws.S3({
