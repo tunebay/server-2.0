@@ -17,6 +17,7 @@ export const createUser = () => {
     created_at: '2017-01-19T16:39:57-08:00',
     last_login: '2017-01-22T16:39:57-08:00',
     password_hash: bcrypt.hashSync('password123'),
+    provider: 'email',
   });
 };
 

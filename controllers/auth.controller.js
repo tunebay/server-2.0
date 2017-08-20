@@ -20,11 +20,13 @@ export const register = (req, res) => {
     .isLength({ min: 3, max: 255 })
     .isEmail();
   req.checkBody('password', 'Invalid password').notEmpty().isLength({ min: 8 });
+  req.checkBody('provider', 'Must post provider').notEmpty();
   req.checkBody('displayName', 'Invalid display name').notEmpty().isLength({ max: 50 });
 
   const salt = bcrypt.genSaltSync(10);
   const username = req.body.username;
   const email = req.body.email;
+  const provider = req.body.provider;
   const displayName = req.body.displayName;
   const active = true;
   const passwordHash = bcrypt.hashSync(req.body.password, salt);
@@ -34,10 +36,10 @@ export const register = (req, res) => {
     username,
     email,
     active,
+    provider,
     password_hash: passwordHash,
     display_name: displayName,
     created_at: createdAt,
-    // provider
   };
 
   req.getValidationResult().then((result) => {

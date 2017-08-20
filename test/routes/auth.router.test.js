@@ -24,15 +24,31 @@ describe('🔑 🚏 /auth', () => {
           email: 'newuser@user.com',
           username: 'newuser',
           password: 's3cr3t123',
-          // provider: 'email',
+          provider: 'email',
         })
         .end((err, res) => {
-          console.log('res', res);
           expect(res.body).to.have.property('user');
           expect(res.body).to.have.property('token');
           expect(res.body.user.username).to.equal('newuser');
           expect(res.body.user.email).to.equal('newuser@user.com');
           expect(res.body.user).to.not.have.property('password');
+          done();
+        });
+    });
+
+    it('must contain a provider', (done) => {
+      request(app)
+        .post(`${AUTH_PATH}/register`)
+        .send({
+          displayName: 'Imposter',
+          email: 'anothernewuser@email.com',
+          username: 'yeboy',
+          password: 's3cr3t123',
+          // provider: 'google' // no provider supplied
+        })
+        .end((err, res) => {
+          expect(res.body).not.to.have.property('token');
+          expect(res.body).to.have.property('errors');
           done();
         });
     });
@@ -45,6 +61,7 @@ describe('🔑 🚏 /auth', () => {
           email: 'mali@user.com', // unique email
           username: 'malimichael', // taken username
           password: 's3cr3t123',
+          provider: 'email',
         })
         .end((err, res) => {
           expect(res.body).not.to.have.property('token');
@@ -61,6 +78,7 @@ describe('🔑 🚏 /auth', () => {
           email: 'mali@tunebay.com', // taken email
           username: 'imsounique', // unique username
           password: 's3cr3t123',
+          provider: 'email',
         })
         .end((err, res) => {
           expect(res.body).not.to.have.property('token');

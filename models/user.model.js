@@ -9,7 +9,15 @@ class User extends Model {
   static get jsonSchema() {
     return {
       type: 'object',
-      required: ['display_name', 'username', 'email', 'active', 'created_at', 'password_hash'],
+      required: [
+        'display_name',
+        'username',
+        'email',
+        'active',
+        'created_at',
+        'password_hash',
+        'provider',
+      ],
 
       properties: {
         id: { type: 'integer' },
@@ -17,7 +25,14 @@ class User extends Model {
         username: { type: 'string', minLength: 3, maxLength: 24 },
         email: { type: 'string', minLength: 3, maxLength: 255 },
         active: { type: 'boolean' },
+        provider: { type: 'string' },
+        first_name: { type: ['string', 'null'] },
+        last_name: { type: ['string', 'null'] },
         account_type: { type: ['string', 'null'] },
+        profile_image: { type: ['string', 'null'] },
+        gender: { type: ['string', 'null'] },
+        cover_photo: { type: ['string', 'null'] },
+        verified: { type: ['boolean', 'null'] },
         last_login: { type: ['string', 'null'], format: 'date-time' },
         created_at: { type: 'string', format: 'date-time' },
         password_hash: { type: 'string', minLength: 8, maxLength: 100 },

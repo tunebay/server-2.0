@@ -15,6 +15,7 @@ const generateUser = () => {
     created_at: faker.date.past(),
     last_login: faker.date.past(),
     password_hash: bcrypt.hashSync('s3cretP4ssw0d'),
+    provider: 'email',
     // password_hash: 'secret'
   };
 };
@@ -62,6 +63,7 @@ exports.seed = (knex) => {
         created_at: faker.date.past(),
         last_login: faker.date.past(),
         password_hash: bcrypt.hashSync('password123'),
+        provider: 'google',
       });
     })
     .then(() => {
@@ -75,6 +77,7 @@ exports.seed = (knex) => {
         created_at: faker.date.past(),
         last_login: faker.date.past(),
         password_hash: bcrypt.hashSync('password123'),
+        provider: 'google',
       });
     })
     .then(() => {
@@ -88,6 +91,7 @@ exports.seed = (knex) => {
         created_at: faker.date.past(),
         last_login: faker.date.past(),
         password_hash: bcrypt.hashSync('password123'),
+        provider: 'google',
       });
     })
     .then(() => {
@@ -101,6 +105,7 @@ exports.seed = (knex) => {
         created_at: faker.date.past(),
         last_login: faker.date.past(),
         password_hash: bcrypt.hashSync('password123'),
+        provider: 'google',
       });
     })
     .then(() => {
@@ -114,6 +119,7 @@ exports.seed = (knex) => {
         created_at: faker.date.past(),
         last_login: faker.date.past(),
         password_hash: bcrypt.hashSync('password123'),
+        provider: 'email',
       });
     })
     .then(() => {
@@ -127,6 +133,7 @@ exports.seed = (knex) => {
         created_at: faker.date.past(),
         last_login: faker.date.past(),
         password_hash: bcrypt.hashSync('password123'),
+        provider: 'google',
       });
     })
     .then(() => {
@@ -140,6 +147,7 @@ exports.seed = (knex) => {
         created_at: faker.date.past(),
         last_login: faker.date.past(),
         password_hash: bcrypt.hashSync('password123'),
+        provider: 'email',
       });
     })
     .then(() => {
@@ -153,6 +161,7 @@ exports.seed = (knex) => {
         created_at: faker.date.past(),
         last_login: faker.date.past(),
         password_hash: bcrypt.hashSync('password123'),
+        provider: 'google',
       });
     })
     .then(() => {
@@ -166,6 +175,7 @@ exports.seed = (knex) => {
         created_at: faker.date.past(),
         last_login: faker.date.past(),
         password_hash: bcrypt.hashSync('password123'),
+        provider: 'facebook',
       });
     })
     .then(() => {
@@ -179,6 +189,7 @@ exports.seed = (knex) => {
         created_at: faker.date.past(),
         last_login: faker.date.past(),
         password_hash: bcrypt.hashSync('password123'),
+        provider: 'google',
       });
     })
     .then(() => {
