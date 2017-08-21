@@ -3,9 +3,14 @@ import morgan from 'morgan';
 import { Model } from 'objection';
 import bodyParser from 'body-parser';
 import cors from 'cors';
+import passport from 'passport';
 import validator from 'express-validator';
-import customValidators from './services/validator_middlewares';
+import uid from 'uid-safe';
+import session from 'express-session';
+import './services/passport';
+import customValidators from './services/middlewares/validators';
 import routes from './routes/index.router';
+import keys from './config/keys';
 import knex from './db/knex';
 
 require('dotenv').config();
@@ -25,9 +30,22 @@ const corsConfig = {
   optionsSuccessStatus: 200,
 };
 
+app.use(
+  session({
+    genid(req) {
+      return uid.sync(18); // use UUIDs for session IDs
+    },
+    cookie: { maxAge: 30 * 24 * 60 * 60 * 1000 },
+    secret: keys.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: true,
+  }),
+);
 app.use(cors(corsConfig));
 app.use(bodyParser.json());
 app.use(validator({ customValidators }));
+app.use(passport.initialize());
+app.use(passport.session());
 app.use('/api/v1', routes);
 
 app.use((req, res, next) => {

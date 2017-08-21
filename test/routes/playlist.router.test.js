@@ -7,6 +7,9 @@ import { generateToken } from '../../services/auth';
 
 const PLAYLIST_PATH = '/api/v1/playlists';
 
+const server = request.agent(app);
+console.log(server);
+
 describe('💿 🚏 /playlists router', () => {
   beforeEach((done) => {
     truncate().then(() => migrate().then(() => createUser()).then(() => done()));
@@ -44,7 +47,7 @@ describe('💿 🚏 /playlists router', () => {
     });
 
     it('It gets a single playlist by its id', (done) => {
-      request(app).get(`${PLAYLIST_PATH}/1`).end((err, res) => {
+      server.get(`${PLAYLIST_PATH}/1`).end((err, res) => {
         expect(res.status).to.equal(200);
         expect(res.body.playlist).to.have.property('title', 'Alchemy');
         expect(res.body.playlist.user).to.be.an('object');
@@ -56,9 +59,9 @@ describe('💿 🚏 /playlists router', () => {
   describe('POST /playlists', () => {
     describe('Stand alone playlist', () => {
       it('creates a new record in the database and returns a 201', (done) => {
-        request(app)
+        server
           .post(PLAYLIST_PATH)
-          .set('authorization', token)
+          // .set('authorization', token)
           .send(playlist)
           .end((err, res) => {
             expect(res.status).to.equal(201);
@@ -68,9 +71,9 @@ describe('💿 🚏 /playlists router', () => {
       });
 
       it('formats the response correctly', (done) => {
-        request(app)
+        server
           .post(PLAYLIST_PATH)
-          .set('authorization', token)
+          // .set('authorization', token)
           .send(playlist)
           .end((err, res) => {
             expect(res.body.playlist).to.have.property('playlistType');
@@ -81,9 +84,9 @@ describe('💿 🚏 /playlists router', () => {
 
       it('will not save the playlist without a required fields', (done) => {
         const badPlaylist = omit(playlist, 'title');
-        request(app)
+        server
           .post(PLAYLIST_PATH)
-          .set('authorization', token)
+          // .set('authorization', token)
           .send(badPlaylist)
           .end((err, res) => {
             expect(res.body.errors).to.have.property('title');
@@ -93,7 +96,7 @@ describe('💿 🚏 /playlists router', () => {
       });
 
       it('It will not save if user is not authd', (done) => {
-        request(app)
+        server
           .post(PLAYLIST_PATH)
           // User not auth'd without sending valid token
           // .set('authorization', token)
@@ -108,9 +111,9 @@ describe('💿 🚏 /playlists router', () => {
 
     describe('Playlist with genres', () => {
       it('Saves a playlist and its genres', (done) => {
-        request(app)
+        server
           .post(PLAYLIST_PATH)
-          .set('authorization', token)
+          // .set('authorization', token)
           .send(playlist)
           .end((err, res) => {
             expect(res.status).to.equal(201);
@@ -124,9 +127,9 @@ describe('💿 🚏 /playlists router', () => {
     describe('Playlist and tracks', () => {
       // const playlistWithTracks = { ...playlist, tracks: testTracks };
       it('It saves a playlists tracks to the database', (done) => {
-        request(app)
+        server
           .post(PLAYLIST_PATH)
-          .set('authorization', token)
+          // .set('authorization', token)
           .send(playlist)
           .end((err, res) => {
             expect(res.status).to.equal(201);

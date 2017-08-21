@@ -1,10 +1,10 @@
 import express from 'express';
-import { requireAuth } from '../services/passport';
+import requireAuth from '../services/middlewares/require_auth';
 import { create, getById } from '../controllers/playlist.controller';
 
 const router = express.Router();
 
-router.post('/', requireAuth, create);
+router.post('/', create);
 router.get('/:id', getById);
 
 export default router;

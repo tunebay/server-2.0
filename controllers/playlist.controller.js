@@ -4,6 +4,7 @@ import Playlist from '../models/playlist.model';
 import knex from '../db/knex';
 
 export const create = (req, res) => {
+  console.log('POSTING USER', req.user);
   req.sanitize('title').trim();
   req.sanitize('purchaseMesssage').trim();
   req.checkBody('title', 'Invalid title').notEmpty().isLength({ max: 100 });

@@ -1,6 +1,5 @@
 import express from 'express';
 import passport from 'passport';
-import { requireLogin } from '../services/passport';
 import {
   register,
   login,
@@ -11,9 +10,18 @@ import {
 const router = express.Router();
 
 router.post('/register', register);
-router.post('/login', requireLogin, login);
+router.post('/login', passport.authenticate('local'), login);
 router.post('/usernamecheck', uniqueUsernameCheck);
 router.post('/emailcheck', uniqueEmailCheck);
+
+router.get('/test', (req, res) => {
+  res.send({ user: req.user, session: req.session });
+});
+
+router.get('/logout', (req, res) => {
+  req.logout();
+  res.send({ message: 'logged out' });
+});
 
 // Google
 

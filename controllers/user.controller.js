@@ -34,6 +34,7 @@ export const getById = (req, res) => {
 };
 
 export const getUserPlaylists = (req, res) => {
+  console.log('REQ USER HERE', req.user);
   User.query()
     .where('username', req.params.username)
     .first()

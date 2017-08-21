@@ -4,7 +4,7 @@ import User from '../models/user.model';
 import reservedUsernames from '../services/reserved_usernames';
 import { setUserInfo, generateToken } from '../services/auth';
 
-export const register = (req, res) => {
+export const register = (req, res, next) => {
   req.sanitize('username').trim();
   req.sanitize('email').trim();
   req.sanitize('password').trim();
@@ -49,10 +49,24 @@ export const register = (req, res) => {
       .insert(newUser)
       .then((user) => {
         const userInfo = setUserInfo(user);
-        res.status(201).json({
-          token: generateToken(userInfo),
-          user: userInfo,
+        req.login(userInfo, (err) => {
+          if (err) {
+            return next(err);
+          }
+          return res.status(201).json({
+            token: generateToken(userInfo),
+            user: userInfo,
+          });
         });
+        // req.login(user, (err) => {
+        //   if (err) {
+        //     return next(err);
+        //   }
+        //   return res.status(201).json({
+        //     token: generateToken(userInfo),
+        //     user: userInfo,
+        //   });
+        // });
       })
       .catch(error => res.status(500).json({ error }));
   });
