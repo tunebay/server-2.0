@@ -5,3 +5,4 @@ TODO
 dist
 .env
 keys.js
+*.rdb

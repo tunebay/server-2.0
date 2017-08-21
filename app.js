@@ -5,7 +5,7 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import passport from 'passport';
 import validator from 'express-validator';
-import uid from 'uid-safe';
+import redis from 'redis';
 import session from 'express-session';
 import './services/passport';
 import customValidators from './services/middlewares/validators';
@@ -13,8 +13,12 @@ import routes from './routes/index.router';
 import keys from './config/keys';
 import knex from './db/knex';
 
+const RedisStore = require('connect-redis')(session);
+
 require('dotenv').config();
 global.Promise = require('bluebird');
+
+const redisClient = redis.createClient();
 
 Model.knex(knex);
 
@@ -32,13 +36,12 @@ const corsConfig = {
 
 app.use(
   session({
-    genid(req) {
-      return uid.sync(18); // use UUIDs for session IDs
-    },
-    cookie: { maxAge: 30 * 24 * 60 * 60 * 1000 },
+    store: new RedisStore({ host: 'localhost', port: 6379, client: redisClient }),
+    cookie: { maxAge: 20000 }, // { maxAge: 30 * 24 * 60 * 60 * 1000 },
     secret: keys.SESSION_SECRET,
+    maxAge: 20000,
     resave: false,
-    saveUninitialized: true,
+    saveUninitialized: false,
   }),
 );
 app.use(cors(corsConfig));

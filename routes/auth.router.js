@@ -15,11 +15,18 @@ router.post('/usernamecheck', uniqueUsernameCheck);
 router.post('/emailcheck', uniqueEmailCheck);
 
 router.get('/test', (req, res) => {
-  res.send({ user: req.user, session: req.session });
+  if (req.session.views) {
+    req.session.views++;
+    res.send({ user: req.user, session: req.session });
+  } else {
+    req.session.views = 1;
+    res.send({ user: req.user, session: req.session });
+  }
 });
 
 router.get('/logout', (req, res) => {
   req.logout();
+  req.session.destroy();
   res.send({ message: 'logged out' });
 });
 
