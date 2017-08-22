@@ -4,6 +4,27 @@ import User from '../models/user.model';
 import reservedUsernames from '../services/reserved_usernames';
 import { setUserInfo, generateToken } from '../services/auth';
 
+export const socialAuth = (req, res) => {
+  const user = req.user;
+  if (user.pending) {
+    // unauth user if pending
+    req.logout();
+    req.session.destroy();
+    // foward to finish sign up form here
+    return res
+      .status(200)
+      .json({ pending: true, message: `Sucessfully authenticated with ${user.provider}`, user });
+  }
+  return res.status(200).json({ user, pending: false });
+};
+
+export const getCurrentUser = (req, res) => {
+  if (!req.user) {
+    return res.status(404).json({ error: 'No current user' });
+  }
+  return res.status(200).json({ user: req.user });
+};
+
 export const register = (req, res, next) => {
   req.sanitize('username').trim();
   req.sanitize('email').trim();
@@ -29,6 +50,7 @@ export const register = (req, res, next) => {
   const provider = req.body.provider;
   const displayName = req.body.displayName;
   const active = true;
+  const pending = false;
   const passwordHash = bcrypt.hashSync(req.body.password, salt);
   const createdAt = moment().format();
 
@@ -37,6 +59,7 @@ export const register = (req, res, next) => {
     email,
     active,
     provider,
+    pending,
     password_hash: passwordHash,
     display_name: displayName,
     created_at: createdAt,
@@ -58,15 +81,6 @@ export const register = (req, res, next) => {
             user: userInfo,
           });
         });
-        // req.login(user, (err) => {
-        //   if (err) {
-        //     return next(err);
-        //   }
-        //   return res.status(201).json({
-        //     token: generateToken(userInfo),
-        //     user: userInfo,
-        //   });
-        // });
       })
       .catch(error => res.status(500).json({ error }));
   });

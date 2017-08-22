@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "NODE_ENV=test mocha --compilers js:babel-core/register --recursive --watch",
-    "start": "NODE_ENV=development nodemon ./index.js --exec babel-node",
+    "start": "concurrently \"NODE_ENV=development nodemon ./index.js --exec babel-node\" \"redis-server\"",
     "migrate:dev": "knex migrate:latest --env development",
     "migrate:test": "knex migrate:latest --env test",
     "seed:dev": "knex seed:run --env development",
@@ -65,6 +65,7 @@
     "chai": "^4.0.2",
     "chai-datetime": "^1.4.1",
     "chai-json-schema": "^1.4.0",
+    "concurrently": "^3.5.0",
     "eslint": "^4.5.0",
     "eslint-config-airbnb": "^15.1.0",
     "eslint-plugin-import": "^2.7.0",

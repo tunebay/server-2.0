@@ -17,12 +17,13 @@ class User extends Model {
         'created_at',
         'password_hash',
         'provider',
+        'pending',
       ],
 
       properties: {
         id: { type: 'integer' },
         display_name: { type: 'string', minLength: 1, maxLength: 50 },
-        username: { type: 'string', minLength: 3, maxLength: 24 },
+        username: { type: 'string', minLength: 3, maxLength: 25 }, // 24 for non-pending
         email: { type: 'string', minLength: 3, maxLength: 255 },
         active: { type: 'boolean' },
         provider: { type: 'string' },
@@ -36,6 +37,7 @@ class User extends Model {
         last_login: { type: ['string', 'null'], format: 'date-time' },
         created_at: { type: 'string', format: 'date-time' },
         password_hash: { type: 'string', minLength: 8, maxLength: 100 },
+        pending: { type: 'boolean' },
       },
     };
   }

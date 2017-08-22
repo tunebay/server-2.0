@@ -5,6 +5,8 @@ import {
   login,
   uniqueUsernameCheck,
   uniqueEmailCheck,
+  socialAuth,
+  getCurrentUser,
 } from '../controllers/auth.controller';
 
 const router = express.Router();
@@ -13,20 +15,11 @@ router.post('/register', register);
 router.post('/login', passport.authenticate('local'), login);
 router.post('/usernamecheck', uniqueUsernameCheck);
 router.post('/emailcheck', uniqueEmailCheck);
-
-router.get('/test', (req, res) => {
-  if (req.session.views) {
-    req.session.views++;
-    res.send({ user: req.user, session: req.session });
-  } else {
-    req.session.views = 1;
-    res.send({ user: req.user, session: req.session });
-  }
-});
+router.get('/current_user', getCurrentUser);
 
 router.get('/logout', (req, res) => {
-  req.logout();
   req.session.destroy();
+  req.logout();
   res.send({ message: 'logged out' });
 });
 
@@ -39,7 +32,7 @@ router.get(
   }),
 );
 
-router.get('/google/callback', passport.authenticate('google'));
+router.get('/google/callback', passport.authenticate('google'), socialAuth);
 
 // Facebook
 
@@ -50,6 +43,6 @@ router.get(
   }),
 );
 
-router.get('/facebook/callback', passport.authenticate('facebook'));
+router.get('/facebook/callback', passport.authenticate('facebook'), socialAuth);
 
 export default router;

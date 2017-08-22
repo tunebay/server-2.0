@@ -37,9 +37,9 @@ const corsConfig = {
 app.use(
   session({
     store: new RedisStore({ host: 'localhost', port: 6379, client: redisClient }),
-    cookie: { maxAge: 20000 }, // { maxAge: 30 * 24 * 60 * 60 * 1000 },
+    cookie: { maxAge: 30 * 24 * 60 * 60 * 1000 },
     secret: keys.SESSION_SECRET,
-    maxAge: 20000,
+    maxAge: { maxAge: 30 * 24 * 60 * 60 * 1000 },
     resave: false,
     saveUninitialized: false,
   }),

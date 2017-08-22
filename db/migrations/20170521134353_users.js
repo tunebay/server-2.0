@@ -2,7 +2,7 @@ exports.up = (knex) => {
   return knex.schema.createTable('users', (t) => {
     t.increments('id').notNullable().primary();
     t.string('display_name', 50).notNullable();
-    t.string('username', 24).notNullable().unique();
+    t.string('username', 25).notNullable().unique();
     t.string('email', 255).notNullable().unique();
     t.boolean('active').notNullable();
     t.string('account_type').nullable();
@@ -16,6 +16,7 @@ exports.up = (knex) => {
     t.string('cover_photo').nullable();
     t.string('first_name').nullable();
     t.string('last_name').nullable();
+    t.boolean('pending').notNullable();
   });
 };
 
@@ -25,22 +26,7 @@ exports.down = (knex) => {
 
 /* Columns to add
 
---------------------------------------------
-provider √
---------------------------------------------
-image √
---------------------------------------------
-verified √
---------------------------------------------
-age ??? how to add min max?
---------------------------------------------
-gender √
---------------------------------------------
-cover √
---------------------------------------------
-first_name √
---------------------------------------------
-last_name √
+pending
 
 
 */
