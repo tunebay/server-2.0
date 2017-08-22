@@ -1,5 +1,6 @@
 import { Model } from 'objection';
 import Playlist from './playlist.model';
+import Social from './social.model';
 
 class User extends Model {
   static get tableName() {
@@ -50,6 +51,14 @@ class User extends Model {
         join: {
           from: 'users.id',
           to: 'playlists.user_id',
+        },
+      },
+      socials: {
+        relation: Model.HasManyRelation,
+        modelClass: Social,
+        join: {
+          from: 'users.id',
+          to: 'socials.user_id',
         },
       },
     };
