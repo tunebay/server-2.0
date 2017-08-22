@@ -1,6 +1,5 @@
 import { Model } from 'objection';
-import Playlist from './playlist.model';
-import Social from './social.model';
+// import Playlist from './playlist.model';
 
 class User extends Model {
   static get tableName() {
@@ -44,10 +43,11 @@ class User extends Model {
   }
 
   static get relationMappings() {
+    // const Social = require('./social.model');
     return {
       playlists: {
         relation: Model.HasManyRelation,
-        modelClass: Playlist,
+        modelClass: require('./playlist.model'),
         join: {
           from: 'users.id',
           to: 'playlists.user_id',
@@ -55,7 +55,7 @@ class User extends Model {
       },
       socials: {
         relation: Model.HasManyRelation,
-        modelClass: Social,
+        modelClass: require('./social.model'),
         join: {
           from: 'users.id',
           to: 'socials.user_id',
@@ -65,4 +65,4 @@ class User extends Model {
   }
 }
 
-export default User;
+module.exports = User;

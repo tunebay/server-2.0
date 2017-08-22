@@ -17,4 +17,4 @@ class PlaylistGenre extends Model {
   }
 }
 
-export default PlaylistGenre;
+module.exports = PlaylistGenre;

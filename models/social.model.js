@@ -1,5 +1,4 @@
 import { Model } from 'objection';
-import User from './user.model';
 
 class Social extends Model {
   static get tableName() {
@@ -19,6 +18,7 @@ class Social extends Model {
   }
 
   static get relationMappings() {
+    const User = require('./user.model');
     return {
       user: {
         relation: Model.BelongsToOneRelation,
@@ -32,4 +32,4 @@ class Social extends Model {
   }
 }
 
-export default Social;
+module.exports = Social;

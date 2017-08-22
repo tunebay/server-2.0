@@ -1,5 +1,6 @@
 import { Model } from 'objection';
-import Playlist from './playlist.model';
+
+const Playlist = require('./playlist.model');
 
 class Track extends Model {
   static get tableName() {
@@ -47,4 +48,4 @@ class Track extends Model {
   }
 }
 
-export default Track;
+module.exports = Track;
