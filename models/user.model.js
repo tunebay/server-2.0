@@ -1,5 +1,4 @@
 import { Model } from 'objection';
-// import Playlist from './playlist.model';
 
 class User extends Model {
   static get tableName() {
@@ -43,7 +42,6 @@ class User extends Model {
   }
 
   static get relationMappings() {
-    // const Social = require('./social.model');
     return {
       playlists: {
         relation: Model.HasManyRelation,

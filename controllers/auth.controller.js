@@ -13,9 +13,10 @@ export const socialAuth = (req, res) => {
     // foward to finish sign up form here
     return res
       .status(200)
-      .json({ pending: true, message: `Sucessfully authenticated with ${user.provider}`, user });
+      .json({ isNewUser: true, message: `Sucessfully authenticated with ${user.provider}`, user });
   }
-  return res.status(200).json({ user, pending: false });
+  // called if user is not pending. Changed in register
+  return res.status(200).json({ user, isNewUser: false });
 };
 
 export const getCurrentUser = (req, res) => {

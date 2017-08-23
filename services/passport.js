@@ -5,14 +5,12 @@ import camelCase from 'camelcase-keys';
 import LocalStrategy from 'passport-local';
 import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
 import { Strategy as FacebookStrategy } from 'passport-facebook';
-// import User from '../models/user.model';
-// import Social from '../models/social.model';
 import { comparePassword } from '../services/auth';
 import keys from '../config/keys';
-// import { Strategy as JwtStrategy, ExtractJwt } from 'passport-jwt';
+
+import knex from '../db/knex';
 
 const User = require('../models/user.model');
-const Social = require('../models/social.model');
 
 passport.serializeUser((user, done) => {
   return done(null, user.id);
@@ -32,19 +30,32 @@ const googleLogin = new GoogleStrategy(
     callbackURL: '/api/v1/auth/google/callback',
   },
   async (accessToken, refreshToken, profile, done) => {
-    const existingUser = await User.query().where('email', profile.emails[0].value).first();
+    const existingUser = await knex
+      .select(
+        'users.id',
+        'users.email',
+        'users.display_name',
+        'users.username',
+        'users.first_name',
+        'users.last_name',
+        'users.profile_image',
+        'users.pending',
+      )
+      .from('socials')
+      .innerJoin('users', 'socials.user_id', 'users.id')
+      .where('socials.social_id', profile.id)
+      .first();
+
     if (existingUser) {
       return done(null, camelCase(existingUser));
     }
 
     const newUser = _constructUser(profile);
-    const dbUser = await User.query().insert(newUser);
-    await Social.query().insert({
-      user_id: dbUser.id,
-      social_id: profile.id,
-      provider: profile.provider,
+    const dbUser = await User.query().insertGraph({
+      ...newUser,
+      socials: [{ social_id: profile.id, provider: profile.provider }],
     });
-    const user = camelCase(dbUser);
+    const user = camelCase(dbUser, { deep: true });
     return done(null, user);
   },
 );
@@ -59,19 +70,32 @@ const facebookLogin = new FacebookStrategy(
     profileFields: ['email', 'name', 'gender', 'cover', 'picture.type(large)', 'displayName'],
   },
   async (accessToken, refreshToken, profile, done) => {
-    const existingUser = await User.query().where('email', profile.emails[0].value).first();
+    const existingUser = await knex
+      .select(
+        'users.id',
+        'users.email',
+        'users.display_name',
+        'users.username',
+        'users.first_name',
+        'users.last_name',
+        'users.profile_image',
+        'users.pending',
+      )
+      .from('socials')
+      .innerJoin('users', 'socials.user_id', 'users.id')
+      .where('socials.social_id', profile.id)
+      .first();
+
     if (existingUser) {
       return done(null, camelCase(existingUser));
     }
 
     const newUser = _constructUser(profile);
-    const dbUser = await User.query().insert(newUser);
-    await Social.query().insert({
-      user_id: dbUser.id,
-      social_id: profile.id,
-      provider: profile.provider,
+    const dbUser = await User.query().insertGraph({
+      ...newUser,
+      socials: [{ social_id: profile.id, provider: profile.provider }],
     });
-    const user = camelCase(dbUser);
+    const user = camelCase(dbUser, { deep: true });
     return done(null, user);
   },
 );
