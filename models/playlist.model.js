@@ -72,11 +72,11 @@ class Playlist extends Model {
       },
       genres: {
         relation: Model.ManyToManyRelation,
-        modelClass: Genre,
+        modelClass: require('./genre.model'),
         join: {
           from: 'playlists.id',
           through: {
-            modelClass: PlaylistGenre,
+            modelClass: require('./playlist_genre.model'),
             from: 'playlists_genres.playlist_id',
             to: 'playlists_genres.genre_id',
           },

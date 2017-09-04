@@ -38,7 +38,7 @@ class Track extends Model {
     return {
       playlist: {
         relation: Model.BelongsToOneRelation,
-        modelClass: Playlist,
+        modelClass: require('./playlist.model'),
         join: {
           from: 'tracks.playlist_id',
           to: 'playlists.id',
