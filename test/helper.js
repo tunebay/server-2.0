@@ -18,6 +18,7 @@ export const createUser = () => {
     last_login: '2017-01-22T16:39:57-08:00',
     password_hash: bcrypt.hashSync('password123'),
     provider: 'email',
+    pending: false,
   });
 };
 

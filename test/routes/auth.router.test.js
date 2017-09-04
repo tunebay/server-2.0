@@ -145,12 +145,15 @@ describe('🔑 🚏 /auth', () => {
           password: 'password123',
         })
         .end((err, res) => {
-          User.query().where('id', res.body.user.id).first().then((user) => {
-            expect(user).to.be.instanceof(User);
-            expect(user.last_login).to.be.equalDate(today);
-            expect(user.last_login).to.be.afterDate(user.created_at);
-            done();
-          });
+          User.query()
+            .where('id', res.body.user.id)
+            .first()
+            .then((user) => {
+              expect(user).to.be.instanceof(User);
+              expect(user.last_login).to.be.equalDate(today);
+              expect(user.last_login).to.be.afterDate(user.created_at);
+              done();
+            });
         });
     });
   });

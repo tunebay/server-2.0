@@ -4,15 +4,20 @@ import Playlist from '../models/playlist.model';
 import knex from '../db/knex';
 
 export const create = (req, res) => {
-  console.log('POSTING USER', req.user);
+  // console.log('POSTING USER', req.user);
   req.sanitize('title').trim();
   req.sanitize('purchaseMesssage').trim();
-  req.checkBody('title', 'Invalid title').notEmpty().isLength({ max: 100 });
+  req
+    .checkBody('title', 'Invalid title')
+    .notEmpty()
+    .isLength({ max: 100 });
   req.checkBody('purchaseMesssage', 'Invalid password').isLength({ max: 255 });
 
   const genreIds = req.body.genreIds;
   const newPlaylist = underscoreKeys(req.body);
   delete newPlaylist.genre_ids;
+
+  console.log('new playlist', newPlaylist);
 
   req.getValidationResult().then((result) => {
     if (!result.isEmpty()) return res.status(400).json({ errors: result.mapped() });
@@ -31,17 +36,20 @@ export const create = (req, res) => {
             res.status(201).json({ playlist });
           });
       })
-      .catch(error => res.status(500).json({ error }));
+      .catch((error) => {
+        console.log('ERROR::****', error);
+        res.status(500).json({ error });
+      });
   });
 };
 
 export const getById = (req, res) => {
   Playlist.query()
     .where('id', req.params.id)
-    .eager('user')
+    // .eager('user')
     .first()
     .then((playlist) => {
-      if (!playlist) return res.status(404).json({ error: 'user not found.' });
+      if (!playlist) return res.status(404).json({ error: 'playlist not found.' });
       const playlistInfo = camelCaseKeys(playlist, { deep: true });
       return res.status(200).json({ playlist: playlistInfo });
     })

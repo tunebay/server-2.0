@@ -15,9 +15,9 @@ describe('👨🏼‍💻 🚀 User Model', () => {
       expect(jsonSchema.type).to.equal('object');
     });
 
-    it('has 6 required feilds', () => {
+    it('has 8 required feilds', () => {
       expect(jsonSchema.required).to.be.an('array');
-      expect(jsonSchema.required.length).to.equal(7);
+      expect(jsonSchema.required.length).to.equal(8);
       expect(jsonSchema.required).to.include('display_name');
       expect(jsonSchema.required).to.include('email');
       expect(jsonSchema.required).to.include('password_hash');
@@ -26,8 +26,8 @@ describe('👨🏼‍💻 🚀 User Model', () => {
       expect(jsonSchema.required).to.include('created_at');
     });
 
-    it('has 9 properties', () => {
-      expect(Object.keys(jsonSchema.properties).length).to.equal(16);
+    it('has 17 properties', () => {
+      expect(Object.keys(jsonSchema.properties).length).to.equal(17);
     });
   });
 });

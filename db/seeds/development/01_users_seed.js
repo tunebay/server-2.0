@@ -16,6 +16,7 @@ const generateUser = () => {
     last_login: faker.date.past(),
     password_hash: bcrypt.hashSync('s3cretP4ssw0d'),
     provider: 'email',
+    pending: false,
     // password_hash: 'secret'
   };
 };
@@ -36,6 +37,7 @@ exports.seed = (knex) => {
         last_login: faker.date.past(),
         password_hash: bcrypt.hashSync('password123'),
         provider: 'google',
+        pending: false,
       });
     })
     .then(() => {
@@ -50,6 +52,7 @@ exports.seed = (knex) => {
         last_login: faker.date.past(),
         password_hash: bcrypt.hashSync('jahroots123'),
         provider: 'email',
+        pending: false,
       });
     })
     .then(() => {
@@ -64,6 +67,7 @@ exports.seed = (knex) => {
         last_login: faker.date.past(),
         password_hash: bcrypt.hashSync('password123'),
         provider: 'google',
+        pending: false,
       });
     })
     .then(() => {
@@ -78,6 +82,7 @@ exports.seed = (knex) => {
         last_login: faker.date.past(),
         password_hash: bcrypt.hashSync('password123'),
         provider: 'google',
+        pending: false,
       });
     })
     .then(() => {
@@ -92,6 +97,7 @@ exports.seed = (knex) => {
         last_login: faker.date.past(),
         password_hash: bcrypt.hashSync('password123'),
         provider: 'google',
+        pending: false,
       });
     })
     .then(() => {
@@ -106,6 +112,7 @@ exports.seed = (knex) => {
         last_login: faker.date.past(),
         password_hash: bcrypt.hashSync('password123'),
         provider: 'google',
+        pending: false,
       });
     })
     .then(() => {
@@ -120,6 +127,7 @@ exports.seed = (knex) => {
         last_login: faker.date.past(),
         password_hash: bcrypt.hashSync('password123'),
         provider: 'email',
+        pending: false,
       });
     })
     .then(() => {
@@ -134,6 +142,7 @@ exports.seed = (knex) => {
         last_login: faker.date.past(),
         password_hash: bcrypt.hashSync('password123'),
         provider: 'google',
+        pending: false,
       });
     })
     .then(() => {
@@ -148,6 +157,7 @@ exports.seed = (knex) => {
         last_login: faker.date.past(),
         password_hash: bcrypt.hashSync('password123'),
         provider: 'email',
+        pending: false,
       });
     })
     .then(() => {
@@ -162,6 +172,7 @@ exports.seed = (knex) => {
         last_login: faker.date.past(),
         password_hash: bcrypt.hashSync('password123'),
         provider: 'google',
+        pending: false,
       });
     })
     .then(() => {
@@ -176,6 +187,7 @@ exports.seed = (knex) => {
         last_login: faker.date.past(),
         password_hash: bcrypt.hashSync('password123'),
         provider: 'facebook',
+        pending: false,
       });
     })
     .then(() => {
@@ -190,6 +202,7 @@ exports.seed = (knex) => {
         last_login: faker.date.past(),
         password_hash: bcrypt.hashSync('password123'),
         provider: 'google',
+        pending: false,
       });
     })
     .then(() => {

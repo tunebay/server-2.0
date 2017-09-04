@@ -41,9 +41,15 @@ export const register = (req, res, next) => {
     .notEmpty()
     .isLength({ min: 3, max: 255 })
     .isEmail();
-  req.checkBody('password', 'Invalid password').notEmpty().isLength({ min: 8 });
+  req
+    .checkBody('password', 'Invalid password')
+    .notEmpty()
+    .isLength({ min: 8 });
   req.checkBody('provider', 'Must post provider').notEmpty();
-  req.checkBody('displayName', 'Invalid display name').notEmpty().isLength({ max: 50 });
+  req
+    .checkBody('displayName', 'Invalid display name')
+    .notEmpty()
+    .isLength({ max: 50 });
 
   const salt = bcrypt.genSaltSync(10);
   const username = req.body.username;
@@ -83,7 +89,10 @@ export const register = (req, res, next) => {
           });
         });
       })
-      .catch(error => res.status(500).json({ error }));
+      .catch((error) => {
+        // console.log('CATCH', error);
+        res.status(500).json({ error });
+      });
   });
 };
 
@@ -115,7 +124,10 @@ export const login = (req, res) => {
 
 export const uniqueUsernameCheck = (req, res) => {
   req.sanitize('username').trim();
-  req.checkBody('username', 'Invalid username').notEmpty().isLength({ min: 3, max: 24 });
+  req
+    .checkBody('username', 'Invalid username')
+    .notEmpty()
+    .isLength({ min: 3, max: 24 });
 
   req.getValidationResult().then((result) => {
     if (!result.isEmpty()) return res.status(400).json({ errors: result.mapped() });
@@ -123,11 +135,14 @@ export const uniqueUsernameCheck = (req, res) => {
       return res.status(200).json({ message: 'Username is reserved.' });
     }
 
-    return User.query().where('username', req.body.username).first().then((user) => {
-      return !user
-        ? res.status(200).json({ message: 'success' })
-        : res.status(200).json({ message: 'Username is not available.' });
-    });
+    return User.query()
+      .where('username', req.body.username)
+      .first()
+      .then((user) => {
+        return !user
+          ? res.status(200).json({ message: 'success' })
+          : res.status(200).json({ message: 'Username is not available.' });
+      });
   });
 };
 
@@ -142,10 +157,13 @@ export const uniqueEmailCheck = (req, res) => {
   req.getValidationResult().then((result) => {
     if (!result.isEmpty()) return res.status(400).json({ errors: result.mapped() });
 
-    return User.query().where('email', req.body.email).first().then((user) => {
-      return !user
-        ? res.status(200).json({ message: 'success' })
-        : res.status(200).json({ message: 'Email already in use.' });
-    });
+    return User.query()
+      .where('email', req.body.email)
+      .first()
+      .then((user) => {
+        return !user
+          ? res.status(200).json({ message: 'success' })
+          : res.status(200).json({ message: 'Email already in use.' });
+      });
   });
 };
