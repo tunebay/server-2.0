@@ -17,7 +17,9 @@ passport.serializeUser((user, done) => {
 });
 
 passport.deserializeUser(async (id, done) => {
-  const user = await User.query().where('id', id).first();
+  const user = await User.query()
+    .where('id', id)
+    .first();
   return done(null, camelCase(user));
 });
 
