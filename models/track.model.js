@@ -1,7 +1,5 @@
 import { Model } from 'objection';
 
-const Playlist = require('./playlist.model');
-
 class Track extends Model {
   static get tableName() {
     return 'tracks';

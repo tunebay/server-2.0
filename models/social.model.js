@@ -18,11 +18,10 @@ class Social extends Model {
   }
 
   static get relationMappings() {
-    const User = require('./user.model');
     return {
       user: {
         relation: Model.BelongsToOneRelation,
-        modelClass: User,
+        modelClass: require('./user.model'),
         join: {
           from: 'socials.user_id',
           to: 'users.id',

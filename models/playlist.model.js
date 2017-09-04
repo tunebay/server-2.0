@@ -1,11 +1,5 @@
 import { Model } from 'objection';
 
-const User = require('./user.model');
-const PlaylistGenre = require('./playlist_genre.model');
-
-const Genre = require('./genre.model');
-const Track = require('./track.model');
-
 class Playlist extends Model {
   static get tableName() {
     return 'playlists';
@@ -56,7 +50,7 @@ class Playlist extends Model {
     return {
       user: {
         relation: Model.BelongsToOneRelation,
-        modelClass: User,
+        modelClass: require('./user.model'),
         join: {
           from: 'playlists.user_id',
           to: 'users.id',
@@ -64,7 +58,7 @@ class Playlist extends Model {
       },
       tracks: {
         relation: Model.HasManyRelation,
-        modelClass: Track,
+        modelClass: require('./track.model'),
         join: {
           from: 'playlists.id',
           to: 'tracks.playlist_id',

@@ -1,8 +1,5 @@
 import { Model } from 'objection';
 
-const Playlist = require('./playlist.model');
-const PlaylistGenre = require('./playlist_genre.model');
-
 class Genre extends Model {
   static get tableName() {
     return 'genres';
@@ -24,11 +21,11 @@ class Genre extends Model {
     return {
       playlists: {
         relation: Model.ManyToManyRelation,
-        modelClass: Playlist,
+        modelClass: require('./playlist.model'),
         join: {
           from: 'genres.id',
           through: {
-            modelClass: PlaylistGenre,
+            modelClass: require('./playlist_genre.model'),
             from: 'playlists_genres.genre_id',
             to: 'playlists_genres.playlist_id',
           },
