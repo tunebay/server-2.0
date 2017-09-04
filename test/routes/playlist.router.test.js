@@ -58,7 +58,7 @@ describe('💿 🚏 /playlists router', () => {
 
     it('It gets a single playlist by its id', (done) => {
       server.get(`${PLAYLIST_PATH}/1`).end((err, res) => {
-        console.log('err on get', err);
+        // console.log('err on get', err);
         expect(res.status).to.equal(200);
         expect(res.body.playlist).to.have.property('title', 'Alchemy');
         // expect(res.body.playlist.user).to.be.an('object');
@@ -75,7 +75,6 @@ describe('💿 🚏 /playlists router', () => {
           // .set('authorization', token)
           .send(playlist)
           .end((err, res) => {
-            console.log('new record', res);
             expect(res.status).to.equal(201);
             expect(res.body.playlist).to.have.property('title', 'Alchemy');
             done();
@@ -107,7 +106,7 @@ describe('💿 🚏 /playlists router', () => {
           });
       });
 
-      it('It will not save if user is not authd', (done) => {
+      xit('It will not save if user is not authd', (done) => {
         server
           .post(PLAYLIST_PATH)
           // User not auth'd without sending valid token

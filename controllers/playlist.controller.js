@@ -4,7 +4,7 @@ import Playlist from '../models/playlist.model';
 import knex from '../db/knex';
 
 export const create = (req, res) => {
-  // console.log('POSTING USER', req.user);
+  console.log('POSTING USER', req.user);
   req.sanitize('title').trim();
   req.sanitize('purchaseMesssage').trim();
   req
@@ -16,8 +16,6 @@ export const create = (req, res) => {
   const genreIds = req.body.genreIds;
   const newPlaylist = underscoreKeys(req.body);
   delete newPlaylist.genre_ids;
-
-  console.log('new playlist', newPlaylist);
 
   req.getValidationResult().then((result) => {
     if (!result.isEmpty()) return res.status(400).json({ errors: result.mapped() });

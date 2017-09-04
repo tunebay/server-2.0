@@ -4,7 +4,7 @@ import { create, getById } from '../controllers/playlist.controller';
 
 const router = express.Router();
 
-router.post('/', create);
+router.post('/', requireAuth, create);
 router.get('/:id', getById);
 
 export default router;
