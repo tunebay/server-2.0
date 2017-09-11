@@ -14,6 +14,8 @@ import keys from './config/keys';
 import knex from './db/knex';
 
 const RedisStore = require('connect-redis')(session);
+const graphqlHTTP = require('express-graphql');
+const GraphQLSchema = require('./graphql/schema/schema');
 
 require('dotenv').config();
 global.Promise = require('bluebird');
@@ -50,6 +52,13 @@ app.use(validator({ customValidators }));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use('/api/v1', routes);
+app.use(
+  '/graphql',
+  graphqlHTTP({
+    schema: GraphQLSchema,
+    graphiql: true,
+  }),
+);
 
 app.use((req, res, next) => {
   const err = new Error('Not Found');
