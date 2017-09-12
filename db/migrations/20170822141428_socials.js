@@ -1,8 +1,15 @@
 exports.up = (knex) => {
   return knex.schema.createTable('socials', (t) => {
-    t.increments('id').notNullable().primary();
+    t
+      .increments('id')
+      .notNullable()
+      .primary();
     t.integer('user_id').unsigned();
-    t.foreign('user_id').references('id').inTable('users').onDelete('CASCADE');
+    t
+      .foreign('user_id')
+      .references('id')
+      .inTable('users')
+      .onDelete('CASCADE');
     t.string('social_id').notNullable();
     t.string('provider').notNullable();
   });
