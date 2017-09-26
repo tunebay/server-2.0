@@ -59,7 +59,7 @@ export const createAnotherPlaylist = () => {
 };
 
 export const truncate = () => {
-  return Promise.each(tables, (table) => {
+  return Promise.each(tables, table => {
     return knex.raw(`TRUNCATE TABLE ${table} RESTART IDENTITY CASCADE`);
   });
 };
