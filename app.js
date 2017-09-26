@@ -33,18 +33,22 @@ if (process.env.NODE_ENV !== 'test') {
 
 const corsConfig = {
   origin: 'http://localhost:8080',
-  optionsSuccessStatus: 200,
+  optionsSuccessStatus: 200
 };
 
 app.use(
   session({
-    store: new RedisStore({ host: 'localhost', port: 6379, client: redisClient }),
+    store: new RedisStore({
+      host: 'localhost',
+      port: 6379,
+      client: redisClient
+    }),
     cookie: { maxAge: 30 * 24 * 60 * 60 * 1000 },
     secret: keys.SESSION_SECRET,
     maxAge: { maxAge: 30 * 24 * 60 * 60 * 1000 },
     resave: false,
-    saveUninitialized: false,
-  }),
+    saveUninitialized: false
+  })
 );
 app.use(cors(corsConfig));
 app.use(bodyParser.json());
@@ -56,8 +60,8 @@ app.use(
   '/graphql',
   graphqlHTTP({
     schema: GraphQLSchema,
-    graphiql: true,
-  }),
+    graphiql: true
+  })
 );
 
 app.use((req, res, next) => {
@@ -75,7 +79,7 @@ if (app.get('env') === 'development') {
     res.status(err.status || 500);
     res.json({
       message: err.message,
-      error: err,
+      error: err
     });
   });
 }
@@ -86,7 +90,7 @@ app.use((err, req, res) => {
   res.status(err.status || 500);
   res.json({
     message: err.message,
-    error: {},
+    error: {}
   });
 });
 

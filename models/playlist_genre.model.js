@@ -11,8 +11,8 @@ class PlaylistGenre extends Model {
       required: ['playlist_id', 'genre_id'],
       properties: {
         playlist_id: { type: 'integer' },
-        genre_id: { type: 'integer' },
-      },
+        genre_id: { type: 'integer' }
+      }
     };
   }
 }

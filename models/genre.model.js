@@ -11,8 +11,8 @@ class Genre extends Model {
       required: ['name'],
       properties: {
         id: { type: 'integer' },
-        name: { type: 'string', minLength: 1, maxLength: 50 },
-      },
+        name: { type: 'string', minLength: 1, maxLength: 50 }
+      }
     };
   }
 
@@ -27,11 +27,11 @@ class Genre extends Model {
           through: {
             modelClass: require('./playlist_genre.model'),
             from: 'playlists_genres.genre_id',
-            to: 'playlists_genres.playlist_id',
+            to: 'playlists_genres.playlist_id'
           },
-          to: 'playlists.id',
-        },
-      },
+          to: 'playlists.id'
+        }
+      }
     };
   }
 }

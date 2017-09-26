@@ -15,7 +15,7 @@ class Track extends Model {
         'playlist_position',
         'single',
         'file_type',
-        'location',
+        'location'
       ],
 
       properties: {
@@ -27,8 +27,8 @@ class Track extends Model {
         playlist_position: { type: 'integer' },
         location: { type: 'string' },
         single: { type: 'boolean' },
-        file_type: { type: 'string' },
-      },
+        file_type: { type: 'string' }
+      }
     };
   }
 
@@ -39,9 +39,9 @@ class Track extends Model {
         modelClass: require('./playlist.model'),
         join: {
           from: 'tracks.playlist_id',
-          to: 'playlists.id',
-        },
-      },
+          to: 'playlists.id'
+        }
+      }
     };
   }
 }

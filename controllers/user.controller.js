@@ -13,7 +13,7 @@ export const getByUsername = (req, res) => {
   User.query()
     .where('username', req.params.username)
     .first()
-    .then((user) => {
+    .then(user => {
       if (!user) return res.status(404).json({ error: 'user not found.' });
       const userInfo = setUserInfo(user);
       return res.status(200).json({ user: userInfo });
@@ -25,7 +25,7 @@ export const getById = (req, res) => {
   User.query()
     .where('id', req.params.id)
     .first()
-    .then((user) => {
+    .then(user => {
       if (!user) return res.status(404).json({ error: 'user not found.' });
       const userInfo = setUserInfo(user);
       return res.status(200).json({ user: userInfo });
@@ -39,7 +39,7 @@ export const getUserPlaylists = (req, res) => {
     .where('username', req.params.username)
     .first()
     .eager('playlists(orderByCreatedAt).[tracks, genres, user]')
-    .then((user) => {
+    .then(user => {
       if (!user) return res.status(404).json({ error: 'user not found.' });
       const userInfo = camelCase(user, { deep: true });
       return res.status(200).json({ user: userInfo });
@@ -49,18 +49,28 @@ export const getUserPlaylists = (req, res) => {
 
 export const getByQuery = (req, res) => {
   req.checkQuery('email').isEmail();
-  req.checkQuery('username', 'Invalid username.').isLength({ min: 3, max: 24 }).isUsername();
+  req
+    .checkQuery('username', 'Invalid username.')
+    .isLength({ min: 3, max: 24 })
+    .isUsername();
 
   const validQueryParameters = ['username', 'email', 'id'];
-  const isValidQuery = Object.keys(req.query).every(e => validQueryParameters.includes(e));
+  const isValidQuery = Object.keys(req.query).every(e =>
+    validQueryParameters.includes(e)
+  );
 
   if (!isValidQuery) {
-    return res.status(400).json({ error: 'One or more query parameters are invalid.' });
+    return res
+      .status(400)
+      .json({ error: 'One or more query parameters are invalid.' });
   }
 
-  return User.query().where(req.query).first().then((user) => {
-    if (!user) return res.status(404).json({ error: 'user not found.' });
-    const userInfo = setUserInfo(user);
-    return res.status(200).json({ user: userInfo });
-  });
+  return User.query()
+    .where(req.query)
+    .first()
+    .then(user => {
+      if (!user) return res.status(404).json({ error: 'user not found.' });
+      const userInfo = setUserInfo(user);
+      return res.status(200).json({ user: userInfo });
+    });
 };

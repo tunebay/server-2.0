@@ -17,7 +17,7 @@ class Playlist extends Model {
         'duration',
         'can_pay_more',
         'permalink',
-        'created_at',
+        'created_at'
       ],
 
       properties: {
@@ -33,16 +33,16 @@ class Playlist extends Model {
         artwork: { type: ['string', 'null'] },
         purchase_message: { type: ['string', 'null'], maxLength: 255 },
         release_date: { type: ['string', 'null'], format: 'date-time' },
-        created_at: { type: 'string', format: 'date-time' },
-      },
+        created_at: { type: 'string', format: 'date-time' }
+      }
     };
   }
 
   static get namedFilters() {
     return {
-      orderByCreatedAt: (builder) => {
+      orderByCreatedAt: builder => {
         builder.orderBy('created_at', 'DESC');
-      },
+      }
     };
   }
 
@@ -53,16 +53,16 @@ class Playlist extends Model {
         modelClass: require('./user.model'),
         join: {
           from: 'playlists.user_id',
-          to: 'users.id',
-        },
+          to: 'users.id'
+        }
       },
       tracks: {
         relation: Model.HasManyRelation,
         modelClass: require('./track.model'),
         join: {
           from: 'playlists.id',
-          to: 'tracks.playlist_id',
-        },
+          to: 'tracks.playlist_id'
+        }
       },
       genres: {
         relation: Model.ManyToManyRelation,
@@ -72,11 +72,11 @@ class Playlist extends Model {
           through: {
             modelClass: require('./playlist_genre.model'),
             from: 'playlists_genres.playlist_id',
-            to: 'playlists_genres.genre_id',
+            to: 'playlists_genres.genre_id'
           },
-          to: 'genres.id',
-        },
-      },
+          to: 'genres.id'
+        }
+      }
     };
   }
 }

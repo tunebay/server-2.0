@@ -2,7 +2,13 @@ const graphql = require('graphql');
 const User = require('../../models/user.model');
 const camelCase = require('camelcase-keys');
 
-const { GraphQLObjectType, GraphQLBoolean, GraphQLInt, GraphQLString, GraphQLSchema } = graphql;
+const {
+  GraphQLObjectType,
+  GraphQLBoolean,
+  GraphQLInt,
+  GraphQLString,
+  GraphQLSchema
+} = graphql;
 
 const UserType = new GraphQLObjectType({
   name: 'User',
@@ -22,8 +28,8 @@ const UserType = new GraphQLObjectType({
     verified: { type: GraphQLBoolean },
     lastLogin: { type: GraphQLString },
     createdAt: { type: GraphQLString },
-    pending: { type: GraphQLBoolean },
-  }),
+    pending: { type: GraphQLBoolean }
+  })
 });
 
 const RootQuery = new GraphQLObjectType({
@@ -37,11 +43,11 @@ const RootQuery = new GraphQLObjectType({
           .where('id', args.id)
           .first();
         return camelCase(user);
-      },
-    },
-  },
+      }
+    }
+  }
 });
 
 module.exports = new GraphQLSchema({
-  query: RootQuery,
+  query: RootQuery
 });

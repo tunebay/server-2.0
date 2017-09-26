@@ -12,8 +12,8 @@ class Social extends Model {
       properties: {
         user_id: { type: 'integer' },
         social_id: { type: 'string' },
-        provider: { type: 'string' },
-      },
+        provider: { type: 'string' }
+      }
     };
   }
 
@@ -24,9 +24,9 @@ class Social extends Model {
         modelClass: require('./user.model'),
         join: {
           from: 'socials.user_id',
-          to: 'users.id',
-        },
-      },
+          to: 'users.id'
+        }
+      }
     };
   }
 }

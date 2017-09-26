@@ -16,7 +16,7 @@ class User extends Model {
         'created_at',
         'password_hash',
         'provider',
-        'pending',
+        'pending'
       ],
 
       properties: {
@@ -36,8 +36,8 @@ class User extends Model {
         last_login: { type: ['string', 'null'], format: 'date-time' },
         created_at: { type: 'string', format: 'date-time' },
         password_hash: { type: 'string', minLength: 8, maxLength: 100 },
-        pending: { type: 'boolean' },
-      },
+        pending: { type: 'boolean' }
+      }
     };
   }
 
@@ -48,17 +48,17 @@ class User extends Model {
         modelClass: require('./playlist.model'),
         join: {
           from: 'users.id',
-          to: 'playlists.user_id',
-        },
+          to: 'playlists.user_id'
+        }
       },
       socials: {
         relation: Model.HasManyRelation,
         modelClass: require('./social.model'),
         join: {
           from: 'users.id',
-          to: 'socials.user_id',
-        },
-      },
+          to: 'socials.user_id'
+        }
+      }
     };
   }
 }
